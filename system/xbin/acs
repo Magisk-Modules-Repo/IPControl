@@ -1,0 +1,4 @@
+#!/system/bin/sh
+
+echo "This is a placeholder script that will be replaced by acs binary."
+return 0

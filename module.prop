@@ -1,0 +1,7 @@
+id=ACSwitch
+name=Advanced Charging Switch
+version=0.1
+versionCode=1
+author=Jaymin Suthar
+description=ACSwitch lets you enable or disable charging based on configured Automation and even on demand.
+minMagisk=1500

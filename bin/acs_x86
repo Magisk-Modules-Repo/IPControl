@@ -1,0 +1,4 @@
+#!/system/bin/sh
+
+echo "This script shouldn't exist here, where did you get the zip?"
+return 0

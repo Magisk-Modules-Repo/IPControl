@@ -1,0 +1,236 @@
+#!/sbin/sh
+
+# Copyright (c) 2019 Jaymin Suthar. All rights reserved.
+#
+# This file is part of "Advanced Charging Switch (ACSwitch)".
+#
+# ACSwitch is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, only version 3 of the License.
+#
+# ACSwitch is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ACSwitch.  If not, see <https://www.gnu.org/licenses/>.
+
+OUTFD=$2
+ZIPFILE=$3
+
+TEMPDIR=/dev/ACSwitch
+INSTALLER=$TEMPDIR/zip
+
+BOOTMODE=false
+DE_DATA=/data/adb
+MAGISK_VER=0000
+SYSTEMLESS=true
+
+MOUNTPATH_DEF=/sbin/.magisk/img
+
+ui_print() {
+	$BOOTMODE && echo "$1" || echo -e "ui_print $1\nui_print" >>/proc/self/fd/$OUTFD
+}
+
+abort() {
+	ui_print "ERROR: $1"
+	cleanup
+	exit 1
+}
+
+print() {
+	ui_print "- $1"
+}
+
+cleanup() {
+	rm -rf $TEMPDIR
+	umount -l /dev/random
+	umount -l /system_root
+	umount -l /system
+	umount -l /data
+}
+
+is_mounted() {
+	cat /proc/mounts | grep " $1 " >/dev/null
+}
+
+getprop() {
+	cat $2 | sed -n "s/^$1=//p"
+}
+
+patchstr() {
+	NEEDZERO=$((${#1} - ${#2}))
+	ZEROES=$(yes "\x0" | head -n $NEEDZERO | tr -d "\n")
+	sed -i "s|${1}|${2}${ZEROES}|g" $3
+}
+
+mount_image() {
+	mkdir $2 2>/dev/null
+	for MINOR in 0 1 2 3 4 5 6 7; do
+		LOOPDEV=/dev/block/loop$MINOR
+		[ ! -b $LOOPDEV ] || mknod $LOOPDEV b 7 $MINOR
+		if losetup $LOOPDEV $1 >/dev/null && mount -o loop $LOOPDEV $2; then
+			break
+		fi
+	done
+	is_mounted $2 && return 0 || return 1
+}
+
+set_perm() {
+	chown $2:$3 $1
+	chmod $4 $1
+	if [ -z "$5" ]; then
+		chcon u:object_r:system_file:s0 $1
+	else
+		chcon $5 $1
+	fi
+}
+
+set_perm_recursive() {
+	find $1/ | while read FILE; do
+		if [ -f $FILE ]; then
+			set_perm $FILE $2 $3 $5 $6
+		else
+			set_perm $FILE $2 $3 $4 $6
+		fi
+	done
+}
+
+ps | grep zygote | grep -v grep >/dev/null && BOOTMODE=true
+
+print "Constructing environment"
+
+is_mounted /data || mount /data || abort "Could not mount /data"
+
+MAGISK_VER=$(getprop MAGISK_VER_CODE $DE_DATA/magisk/util_functions.sh)
+[ -n "$MAGISK_VER" ] && [ "$MAGISK_VER" -gt 1500 ] || SYSTEMLESS=false
+
+$SYSTEMLESS && RW=ro || RW=rw
+mount -o $RW /system 2>/dev/null || mount -o $RW,remount /system || abort "Could not mount /system"
+if [ -f /system/init ]; then
+	mkdir /system_root 2>/dev/null
+	mount -o move /system /system_root
+	mount -o bind /system_root/system /system
+fi
+
+ARCH=$(getprop ro.product.cpu.abi /system/build.prop)
+case $ARCH in
+	arm*) ARCH=arm ;;
+	x86*) ARCH=x86 ;;
+	*) abort "Unsupported architecture detected" ;;
+esac
+
+if ! $BOOTMODE; then
+	mount -o bind /dev/urandom /dev/random
+	unset LD_LIBRARY_PATH
+	unset LD_PRELOAD
+fi
+
+ui_print "**************************************"
+ui_print "  Advanced Charging Switch Installer  "
+ui_print "**************************************"
+
+print "Systemless mode: $SYSTEMLESS"
+print "Device architecture: $ARCH"
+
+rm -rf $TEMPDIR 2>/dev/null
+mkdir -p $INSTALLER
+
+print "Unzipping $ZIPFILE"
+unzip -o "$ZIPFILE" -d $INSTALLER >/dev/null
+[ -f $INSTALLER/module.prop ] || abort "Could not extract archive"
+
+ui_print "Installing..."
+
+if $SYSTEMLESS; then
+	MOUNTPATH=$TEMPDIR/img
+	ACSDIR=$MOUNTPATH/ACSwitch
+
+	IMAGE=$DE_DATA/magisk_merge.img
+
+	[ $MAGISK_VER -ge 18000 ] && MOUNTPOINT=/sbin/.magisk/img || MOUNTPOINT=/sbin/.core/img
+
+	SYSTEM=$INSTALLER/system
+	ACSEXEC=$INSTALLER/bin/acs_$ARCH
+	BOOTRUN=$INSTALLER/service.sh
+	ACSINFO=$INSTALLER/module.prop
+	CFGFILE=$INSTALLER/acs.conf
+
+	BINDIR=$ACSDIR/system/xbin
+
+	if [ ! -f $IMAGE ]; then
+		print "Creating $IMAGE"
+		make_ext4fs -l 64M $IMAGE >/dev/null || mke2fs -t ext4 $IMAGE 64M >/dev/null
+		[ -f $IMAGE ] || abort "Could not create $IMAGE"
+	fi
+	print "Mounting $IMAGE"
+	mount_image $IMAGE $MOUNTPATH || abort "Could not mount $IMAGE"
+
+	[ -d /system/xbin ] || BINDIR=$ACSDIR/system/bin
+
+	rm -rf $ACSDIR 2>/dev/null
+	mkdir -p $BINDIR
+
+	print "Copying files"
+	cp -f $ACSEXEC $BINDIR/
+	mv -f $BINDIR/acs_* $BINDIR/acs
+	cp -f $BOOTRUN $ACSINFO $CFGFILE $ACSDIR/
+
+	touch $ACSDIR/auto_mount
+
+	if $BOOTMODE; then
+		mkdir $MOUNTPOINT/ACSwitch 2>/dev/null
+		cp -f $ACSINFO $MOUNTPOINT/ACSwitch/
+		touch $MOUNTPOINT/ACSwitch/update
+	fi
+
+	if [ $MAGISK_VER -lt 18000 ]; then
+		print "Patching acs binary"
+		patchstr $MOUNTPATH_DEF $MOUNTPOINT $BINDIR/acs
+	fi
+
+	print "Setting permissions"
+	set_perm_recursive $ACSDIR 0 0    0755 0644
+	set_perm_recursive $BINDIR 0 2000 0755 4755
+
+	umount -l $MOUNTPATH
+	losetup -d $LOOPDEV
+else
+	ACSDIR=$DE_DATA/ACSwitch
+
+	INITDIR=/system/etc/init.d
+
+	ACSEXEC=$INSTALLER/bin/acs_$ARCH
+	BOOTRUN=$INSTALLER/service.sh
+	ACSINFO=$INSTALLER/module.prop
+	CFGFILE=$INSTALLER/acs.conf
+
+	ACSBIN=/system/bin/acs
+	INITRUN=$INITDIR/02acsd_launcher
+	MODINFO=$ACSDIR/acs.prop
+	ACSCONF=$ACSDIR/acs.conf
+
+	[ -d $INITDIR ] || abort "Init.d support is not present"
+
+	rm -rf $ACSDIR 2>/dev/null
+	mkdir $ACSDIR
+
+	print "Copying files"
+	cp -f $ACSEXEC $ACSBIN
+	cp -f $BOOTRUN $INITRUN
+	cp -f $ACSINFO $MODINFO
+	cp -f $CFGFILE $ACSCONF
+
+	print "Patching acs binary"
+	patchstr $MOUNTPATH_DEF $DE_DATA $ACSBIN
+
+	print "Setting permissions"
+	set_perm_recursive $ACSDIR  0 0    0700 0600 u:object_r:adb_data_file:s0
+	set_perm           $ACSBIN  0 2000 4750
+	set_perm           $INITRUN 0 0    0700
+fi
+
+ui_print "Installation completed successfully!"
+cleanup
+exit 0
