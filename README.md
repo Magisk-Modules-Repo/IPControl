@@ -88,7 +88,7 @@
 
 ## Thanks To
 
-* A huge thanks to @VR25, who provided their control files' database with open
+* A huge thanks to @VR-25, who provided their control files' database with open
   heart, making development on ACSwitch easier than ever.
 
 ## Legal
@@ -98,7 +98,7 @@
 
 ## Source Code
 
-* Source code of the acs binary can be found in native/ folder of Super repo. I
+* Source code of the acs binary can be found in native/ folder of Super Repo. I
   believe this to be a good source code sharing scheme. Other are scripts, they
   are pretty much open sourced anyways.
 
