@@ -51,17 +51,17 @@
 
     Options:
 
-        `acs --toggle`
+        acs --toggle
             Toggle Automation on or off.
 
-        `acs --update <thr_disable> <thr_enable>`
+        acs --update <thr_disable> <thr_enable>
             Set disable threshold to thr_disable and similarly.
             Omitting values will reset them to their defaults.
 
-        `acs --launch`
+        acs --launch
             Launch the ACSwitch daemon.
 
-        `acs --method <format_str>`
+        acs --method <format_str>
             Enable or disable charging manually based on format_str.
             Format string should be "(e|d)(%|s|m|h)(threshold)" where...
 
@@ -69,13 +69,13 @@
             ... (%|s|m|h) determine target threshold type (time/level).
             ... and (threshold) is the threshold to hold changes until.
 
-        `acs --kill`
+        acs --kill
             Kill all ACSwitch processes including the daemon.
 
-        `acs --info`
+        acs --info
             Provides some information about battery and ACSwitch settings.
 
-        `acs --configure`
+        acs --configure
             (Re)Configure ACSwitch. This is required on install/upgrades.
 
 ## Support
