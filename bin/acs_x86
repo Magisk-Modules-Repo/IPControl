@@ -1,4 +1,4 @@
 #!/system/bin/sh
 
-echo "This script shouldn't exist here, where did you get the zip?"
-return 0
+echo >&2 "I shouldn't be here, where did you get the zip?"
+exit 1
