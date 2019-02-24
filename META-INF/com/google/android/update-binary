@@ -19,17 +19,16 @@
 OUTFD=$2
 ZIPFILE=$3
 
-TEMPDIR=/dev/ACSwitch
-INSTALLER=$TEMPDIR/zip
+INSTALLER=/dev/ACSwitch
 
 MIN_API=21
 
 BOOTMODE=false
 DE_DATA=/data/adb
-MAGISK_VER=0000
+MAGISK_VER=00000
 SYSTEMLESS=true
 
-MOUNTPATH_DEF=/sbin/.magisk/img
+MODULE_ROOT_DEF=$DE_DATA/modules
 
 exec 2>/dev/ACSwitch_install.log
 
@@ -48,7 +47,7 @@ print() {
 }
 
 cleanup() {
-	rm -rf $TEMPDIR
+	rm -rf $INSTALLER
 	umount -l /dev/random
 	umount -l /system_root
 	umount -l /system
@@ -67,18 +66,6 @@ patchstr() {
 	NEEDZERO=$((${#1} - ${#2}))
 	ZEROES=$(yes "\x0" | head -n $NEEDZERO | tr -d "\n")
 	sed -i "s|${1}|${2}${ZEROES}|g" $3
-}
-
-mount_image() {
-	mkdir $2
-	for MINOR in 0 1 2 3 4 5 6 7; do
-		LOOPDEV=/dev/block/loop$MINOR
-		[ ! -b $LOOPDEV ] || mknod $LOOPDEV b 7 $MINOR
-		if losetup $LOOPDEV $1 >/dev/null && mount -o loop $LOOPDEV $2; then
-			break
-		fi
-	done
-	is_mounted $2 && return 0 || return 1
 }
 
 set_perm() {
@@ -108,7 +95,7 @@ print "Constructing environment"
 is_mounted /data || mount /data || abort "Could not mount /data"
 
 MAGISK_VER=$(getprop MAGISK_VER_CODE $DE_DATA/magisk/util_functions.sh)
-[ -n "$MAGISK_VER" ] && [ "$MAGISK_VER" -gt 1500 ] || SYSTEMLESS=false
+[ -n "$MAGISK_VER" ] && [ "$MAGISK_VER" -gt 18200 ] || SYSTEMLESS=false
 
 $SYSTEMLESS && RW=ro || RW=rw
 mount -o $RW /system || mount -o $RW,remount /system || abort "Could not mount /system"
@@ -141,7 +128,7 @@ ui_print "**************************************"
 print "Systemless mode: $SYSTEMLESS"
 print "Device architecture: $ARCH"
 
-rm -rf $TEMPDIR
+rm -rf $INSTALLER
 mkdir -p $INSTALLER
 
 print "Unzipping $ZIPFILE"
@@ -151,30 +138,17 @@ unzip -o "$ZIPFILE" -d $INSTALLER >/dev/null
 ui_print "Installing..."
 
 if $SYSTEMLESS; then
-	MOUNTPATH=$TEMPDIR/img
-	ACSDIR=$MOUNTPATH/ACSwitch
-
-	IMAGE=$DE_DATA/magisk_merge.img
-
-	[ $MAGISK_VER -ge 18000 ] && MOUNTPOINT=/sbin/.magisk/img || MOUNTPOINT=/sbin/.core/img
+	MODULE_ROOT=$DE_DATA/modules_update
+	ACSDIR=$MODULE_ROOT/ACSwitch
 
 	SYSTEM=$INSTALLER/system
+
 	ACSEXEC=$INSTALLER/bin/acs_$ARCH
 	BOOTRUN=$INSTALLER/service.sh
 	ACSINFO=$INSTALLER/module.prop
 	CFGFILE=$INSTALLER/acs.conf
 
-	BINDIR=$ACSDIR/system/xbin
-
-	if [ ! -f $IMAGE ]; then
-		print "Creating $IMAGE"
-		make_ext4fs -l 64M $IMAGE >/dev/null || mke2fs -t ext4 $IMAGE 64M >/dev/null
-		[ -f $IMAGE ] || abort "Could not create $IMAGE"
-	fi
-	print "Mounting $IMAGE"
-	mount_image $IMAGE $MOUNTPATH || abort "Could not mount $IMAGE"
-
-	[ -d /system/xbin ] || BINDIR=$ACSDIR/system/bin
+	[ -d /system/xbin ] && BINDIR=$ACSDIR/system/xbin || BINDIR=$ACSDIR/system/bin
 
 	rm -rf $ACSDIR
 	mkdir -p $BINDIR
@@ -187,22 +161,15 @@ if $SYSTEMLESS; then
 	touch $ACSDIR/auto_mount
 
 	if $BOOTMODE; then
-		mkdir $MOUNTPOINT/ACSwitch
-		cp -f $ACSINFO $MOUNTPOINT/ACSwitch/
-		touch $MOUNTPOINT/ACSwitch/update
-	fi
-
-	if [ $MAGISK_VER -lt 18000 ]; then
-		print "Patching acs binary"
-		patchstr $MOUNTPATH_DEF $MOUNTPOINT $BINDIR/acs
+		mkdir $MODULE_ROOT_DEF/ACSwitch
+		cp -f $ACSINFO $MODULE_ROOT_DEF/ACSwitch/
+		touch $MODULE_ROOT_DEF/ACSwitch/update
 	fi
 
 	print "Setting permissions"
 	set_perm_recursive $ACSDIR 0 0    0755 0644
 	set_perm_recursive $BINDIR 0 2000 0755 4755
 
-	umount -l $MOUNTPATH
-	losetup -d $LOOPDEV
 else
 	ACSDIR=$DE_DATA/ACSwitch
 
@@ -230,7 +197,7 @@ else
 	cp -f $CFGFILE $ACSCONF
 
 	print "Patching acs binary"
-	patchstr $MOUNTPATH_DEF $DE_DATA $ACSBIN
+	patchstr $MODULE_ROOT_DEF $DE_DATA $ACSBIN
 
 	print "Setting permissions"
 	set_perm_recursive $ACSDIR  0 0    0700 0600 u:object_r:adb_data_file:s0

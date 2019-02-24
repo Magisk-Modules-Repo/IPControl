@@ -24,7 +24,7 @@
 
 ## Requirements
 
-* Magisk v15.0+ (if systemless mode).
+* Magisk v18.2+ (if systemless mode).
 * Init.d support (if system mode).
 * Basic knowledge of commandline.
 
