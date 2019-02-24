@@ -5,18 +5,13 @@
 ## Links
 
 * [Git Repository](https://github.com/sjayminsgithub/ACSwitch-module)
-* [Super Git Repo](https://github.com/sjayminsgithub/ACSwitch-build)
+* [Build Git Repo](https://github.com/sjayminsgithub/ACSwitch-build)
 * [Support Thread](https://www.google.co.in/)
 
 ## Introduction
 
 * ACSwitch lets you enable or disable charging based on configured Automation
   and even on demand.
-
-* Well, ACSwitch is a great approach if you'd knew how batteries work to extend
-  their lives while it's still a great thing to know that now you can leave your
-  phone charging overnight without having to worry about the battery exploding.
-  ACSwitch takes care of it :)
 
 ## Description
 
@@ -65,9 +60,9 @@
             Enable or disable charging manually based on format_str.
             Format string should be "(e|d)(%|s|m|h)(threshold)" where...
 
-            ... (e|d) are determine charging state (enable/disabled).
+            ... (e|d) are to determine charging state (enable/disabled).
             ... (%|s|m|h) determine target threshold type (time/level).
-            ... and (threshold) is the threshold to hold changes until.
+            ... and (threshold) is the threshold to keep changes until.
 
         acs --kill
             Kill all ACSwitch processes including the daemon.
@@ -93,13 +88,12 @@
 
 ## Legal
 
-* This WIP project is pre-released under the GNU General Public License v3. See
-  file NOTICE in Super Repo root for licensing information and more details.
+* See file NOTICE in project root for licensing information and more details.
 
 ## Source Code
 
-* Source code of the acs binary can be found in native/ folder of Super Repo. I
-  believe this to be a good source code sharing scheme. Other are scripts, they
+* Source code of the acs binary can be found in submodule native of Build Repo.
+  I find this to be a good source code sharing scheme. Other are scripts, they
   are pretty much open sourced anyways.
 
 ## Changelog
