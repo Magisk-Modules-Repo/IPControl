@@ -31,6 +31,8 @@ SYSTEMLESS=true
 
 MOUNTPATH_DEF=/sbin/.magisk/img
 
+exec 2>/dev/ACSwitch_install.log
+
 ui_print() {
 	$BOOTMODE && echo "$1" || echo -e "ui_print $1\nui_print" >>/proc/self/fd/$OUTFD
 }
@@ -68,7 +70,7 @@ patchstr() {
 }
 
 mount_image() {
-	mkdir $2 2>/dev/null
+	mkdir $2
 	for MINOR in 0 1 2 3 4 5 6 7; do
 		LOOPDEV=/dev/block/loop$MINOR
 		[ ! -b $LOOPDEV ] || mknod $LOOPDEV b 7 $MINOR
@@ -109,9 +111,9 @@ MAGISK_VER=$(getprop MAGISK_VER_CODE $DE_DATA/magisk/util_functions.sh)
 [ -n "$MAGISK_VER" ] && [ "$MAGISK_VER" -gt 1500 ] || SYSTEMLESS=false
 
 $SYSTEMLESS && RW=ro || RW=rw
-mount -o $RW /system 2>/dev/null || mount -o $RW,remount /system || abort "Could not mount /system"
+mount -o $RW /system || mount -o $RW,remount /system || abort "Could not mount /system"
 if [ -f /system/init ]; then
-	mkdir /system_root 2>/dev/null
+	mkdir /system_root
 	mount -o move /system /system_root
 	mount -o bind /system_root/system /system
 fi
@@ -139,7 +141,7 @@ ui_print "**************************************"
 print "Systemless mode: $SYSTEMLESS"
 print "Device architecture: $ARCH"
 
-rm -rf $TEMPDIR 2>/dev/null
+rm -rf $TEMPDIR
 mkdir -p $INSTALLER
 
 print "Unzipping $ZIPFILE"
@@ -174,7 +176,7 @@ if $SYSTEMLESS; then
 
 	[ -d /system/xbin ] || BINDIR=$ACSDIR/system/bin
 
-	rm -rf $ACSDIR 2>/dev/null
+	rm -rf $ACSDIR
 	mkdir -p $BINDIR
 
 	print "Copying files"
@@ -185,7 +187,7 @@ if $SYSTEMLESS; then
 	touch $ACSDIR/auto_mount
 
 	if $BOOTMODE; then
-		mkdir $MOUNTPOINT/ACSwitch 2>/dev/null
+		mkdir $MOUNTPOINT/ACSwitch
 		cp -f $ACSINFO $MOUNTPOINT/ACSwitch/
 		touch $MOUNTPOINT/ACSwitch/update
 	fi
@@ -218,7 +220,7 @@ else
 
 	[ -d $INITDIR ] || abort "Init.d support is not present"
 
-	rm -rf $ACSDIR 2>/dev/null
+	rm -rf $ACSDIR
 	mkdir $ACSDIR
 
 	print "Copying files"

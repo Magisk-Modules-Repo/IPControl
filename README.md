@@ -81,6 +81,9 @@
 * Please post complete terminal output, possibly screenshots if you're reporting
   bugs. ACSwitch does not generate logfiles, so that's everything what I need.
 
+* For installation errors, you need to save /dev/ACSwitch_install.log right away
+  following the failure and provide it.
+
 ## Thanks To
 
 * A huge thanks to @VR-25, who provided their control files' database with open
