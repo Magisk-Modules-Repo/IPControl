@@ -48,10 +48,10 @@ print() {
 
 cleanup() {
 	rm -rf $INSTALLER
-	umount -l /dev/random
 	umount -l /system_root
 	umount -l /system
 	umount -l /data
+	umount -l /dev/random
 }
 
 is_mounted() {
@@ -106,19 +106,20 @@ if [ -f /system/init ]; then
 fi
 
 API=$(getprop ro.build.version.sdk /system/build.prop)
-[ $API -ge $MIN_API ] || abort "Unsupported platform detected"
+[ $API -ge $MIN_API ] || abort "Unsupported platform ($API) detected"
 
 ARCH=$(getprop ro.product.cpu.abi /system/build.prop)
 case $ARCH in
 	arm*) ARCH=arm ;;
 	x86*) ARCH=x86 ;;
-	*) abort "Unsupported architecture detected" ;;
+	*) abort "Unsupported architecture ($ARCH) detected" ;;
 esac
 
 if ! $BOOTMODE; then
 	mount -o bind /dev/urandom /dev/random
 	unset LD_LIBRARY_PATH
 	unset LD_PRELOAD
+	unset LD_CONFIG_FILE
 fi
 
 ui_print "**************************************"

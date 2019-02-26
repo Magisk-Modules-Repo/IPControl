@@ -1,4 +1,4 @@
 #!/system/bin/sh
 
-echo >&2 "This is a placeholder script that will be replaced by acs binary."
+echo >&2 "I was supposed to be replaced by the installer, errors ?"
 exit 1

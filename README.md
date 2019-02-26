@@ -10,7 +10,7 @@
 
 ## Introduction
 
-* ACSwitch lets you enable or disable charging based on configured Automation
+* ACSwitch allows you to switch charging status based on a configured Automation
   and even on demand.
 
 ## Description
@@ -20,7 +20,8 @@
   threshold. This works autonomous, and always...
 
 * ... while you can also enable/disable charging whenever you want via ACSwitch
-  commandline interface. You can find more details on commandline below.
+  Methods using commandline interface. You can find more details on commandline
+  below.
 
 ## Requirements
 
@@ -30,18 +31,18 @@
 
 ## Installation
 
-* Simply flash the zip via either Magisk Manager or any custom recovery. Note
-  that upgrading ACSwitch wipes previous configs, so you'll have to start over
-  again with configuring it.
+* Simply flash the zip via either Magisk Manager or any custom recovery (TWRP is
+  preferred). Note that upgrading ACSwitch wipes previous configs, so you'd have
+  to start all over again with configuring it.
 
 ## Setup
 
-* You need to configure ACSwitch whenever you install/upgrade it. Please check
+* You need to configure ACSwitch whenever you install/upgrade it. Please see the
   commandline section to know how to configure it.
 
 ## Usage
 
-* Well, if you don't have a terminal emulator, install it first then. Afterwards
+* Well, if you don't have a terminal emulator, install it first then. After then
   you can run `acs [<option> [<args>...]...]` from terminal emulator.
 
     Options:
@@ -58,7 +59,7 @@
 
         acs --method <format_str>
             Enable or disable charging manually based on format_str.
-            Format string should be "(e|d)(%|s|m|h)(threshold)" where...
+            Format string must be "(e|d)(%|s|m|h)(threshold)" where...
 
             ... (e|d) are to determine charging state (enable/disabled).
             ... (%|s|m|h) determine target threshold type (time/level).
@@ -75,19 +76,19 @@
 
 ## Support
 
-* Please feel free to ask any questions, request features or submit bugreports
-  at ACSwitch Support Thread. I will do best to give satisfactory resolution.
+* Please feel free to post any feature requests or bugreports at Support Thread.
+  I will try my best to implement/fix the report.
 
 * Please post complete terminal output, possibly screenshots if you're reporting
   bugs. ACSwitch does not generate logfiles, so that's everything what I need.
 
 * For installation errors, you need to save /dev/ACSwitch_install.log right away
-  following the failure and provide it.
+  following the failure and provide it to me.
 
 ## Thanks To
 
-* A huge thanks to @VR-25, who provided their control files' database with open
-  heart, making development on ACSwitch easier than ever.
+* Huge thanks to @VR-25, providing their control files' database with open heart
+  making development on ACSwitch easier than ever.
 
 ## Legal
 
@@ -95,9 +96,8 @@
 
 ## Source Code
 
-* Source code of the acs binary can be found in submodule native of Build Repo.
-  I find this to be a good source code sharing scheme. Other are scripts, they
-  are pretty much open sourced anyways.
+* Source code of this entire project can be found in the Build Repo (submodules
+  contain actual sources, Build Repo just provides build scripts).
 
 ## Changelog
 

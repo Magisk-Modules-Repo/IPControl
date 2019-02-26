@@ -1,4 +1,4 @@
 #!/system/bin/sh
 
-echo >&2 "I shouldn't be here, where did you get the zip?"
+echo >&2 "I should be a binary, build error?"
 exit 1
