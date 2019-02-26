@@ -54,9 +54,6 @@
             Set disable threshold to thr_disable and similarly.
             Omitting values will reset them to their defaults.
 
-        acs --launch
-            Launch the ACSwitch daemon.
-
         acs --method <format_str>
             Enable or disable charging manually based on format_str.
             Format string must be "(e|d)(%|s|m|h)(threshold)" where...
@@ -65,14 +62,18 @@
             ... (%|s|m|h) determine target threshold type (time/level).
             ... and (threshold) is the threshold to keep changes until.
 
-        acs --kill
-            Kill all ACSwitch processes including the daemon.
+        acs --daemon <action>
+            Launch or kill the ACSwitch daemon.
+            action can be either launch or kill.
 
         acs --info
             Provides some information about battery and ACSwitch settings.
 
         acs --configure
             (Re)Configure ACSwitch. This is required on install/upgrades.
+
+        acs --help
+            Print this usage document.
 
 ## Support
 
