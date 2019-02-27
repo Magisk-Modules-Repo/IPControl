@@ -16,4 +16,4 @@
 # You should have received a copy of the GNU General Public License
 # along with ACSwitch.  If not, see <https://www.gnu.org/licenses/>.
 
-acs --launch
+acs --daemon launch
