@@ -4,8 +4,8 @@
 
 ## Links
 
-* [Git Repository](https://github.com/sjayminsgithub/ACSwitch-module)
-* [Build Git Repo](https://github.com/sjayminsgithub/ACSwitch-build)
+* [Git Repository](https://github.com/sjaymin1001/ACSwitch-module)
+* [Build Git Repo](https://github.com/sjaymin1001/ACSwitch-build)
 * [Support Thread](https://www.google.co.in/)
 
 ## Introduction
@@ -48,13 +48,16 @@
     Options:
 
         acs --toggle
+
             Toggle Automation on or off.
 
         acs --update <thr_disable> <thr_enable>
+
             Set disable threshold to thr_disable and similarly.
             Omitting values will reset them to their defaults.
 
         acs --method <format_str>
+
             Enable or disable charging manually based on format_str.
             Format string must be "(e|d)(%|s|m|h)(threshold)" where...
 
@@ -63,16 +66,20 @@
             ... and (threshold) is the threshold to keep changes until.
 
         acs --daemon <action>
+
             Launch or kill the ACSwitch daemon.
             action can be either launch or kill.
 
         acs --info
+
             Provides some information about battery and ACSwitch settings.
 
         acs --configure
+
             (Re)Configure ACSwitch. This is required on install/upgrades.
 
         acs --help
+
             Print this usage document.
 
 ## Support

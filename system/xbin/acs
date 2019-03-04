@@ -1,4 +1,0 @@
-#!/system/bin/sh
-
-echo >&2 "I was supposed to be replaced by the installer, errors ?"
-exit 1

@@ -63,8 +63,8 @@ getprop() {
 }
 
 patchstr() {
-	NEEDZERO=$((${#1} - ${#2}))
-	ZEROES=$(yes "\x0" | head -n $NEEDZERO | tr -d "\n")
+	ZEROCOUNT=$((${#1} - ${#2}))
+	ZEROES=$(yes "\x0" | head -n $ZEROCOUNT | tr -d "\n")
 	sed -i "s|${1}|${2}${ZEROES}|g" $3
 }
 
@@ -95,7 +95,7 @@ print "Constructing environment"
 is_mounted /data || mount /data || abort "Could not mount /data"
 
 MAGISK_VER=$(getprop MAGISK_VER_CODE $DE_DATA/magisk/util_functions.sh)
-[ -n "$MAGISK_VER" ] && [ "$MAGISK_VER" -gt 18200 ] || SYSTEMLESS=false
+[ -n "$MAGISK_VER" ] && [ $MAGISK_VER -gt 18200 ] || SYSTEMLESS=false
 
 $SYSTEMLESS && RW=ro || RW=rw
 mount -o $RW /system || mount -o $RW,remount /system || abort "Could not mount /system"
@@ -106,7 +106,7 @@ if [ -f /system/init ]; then
 fi
 
 API=$(getprop ro.build.version.sdk /system/build.prop)
-[ $API -ge $MIN_API ] || abort "Unsupported platform ($API) detected"
+[ $API -ge $MIN_API ] || abort "Unsupported API ($API) detected"
 
 ARCH=$(getprop ro.product.cpu.abi /system/build.prop)
 case $ARCH in
@@ -142,22 +142,23 @@ if $SYSTEMLESS; then
 	MODULE_ROOT=$DE_DATA/modules_update
 	ACSDIR=$MODULE_ROOT/ACSwitch
 
-	SYSTEM=$INSTALLER/system
+	SYSTEM=$INSTALLER/$ARCH
 
-	ACSEXEC=$INSTALLER/bin/acs_$ARCH
-	BOOTRUN=$INSTALLER/service.sh
+	MAGIC_SYSTEM=$ACSDIR/system
+
 	ACSINFO=$INSTALLER/module.prop
+	BOOTRUN=$INSTALLER/service.sh
 	CFGFILE=$INSTALLER/acs.conf
 
 	[ -d /system/xbin ] && BINDIR=$ACSDIR/system/xbin || BINDIR=$ACSDIR/system/bin
 
 	rm -rf $ACSDIR
-	mkdir -p $BINDIR
+	mkdir -p $ACSDIR
 
 	print "Copying files"
-	cp -f $ACSEXEC $BINDIR/
-	mv -f $BINDIR/acs_* $BINDIR/acs
-	cp -f $BOOTRUN $ACSINFO $CFGFILE $ACSDIR/
+	mv -f $SYSTEM $MAGIC_SYSTEM
+	mv -f $MAGIC_SYSTEM/xbin $BINDIR
+	mv -f $BOOTRUN $ACSINFO $CFGFILE $ACSDIR/
 
 	touch $ACSDIR/auto_mount
 
@@ -176,26 +177,30 @@ else
 
 	INITDIR=/system/etc/init.d
 
-	ACSEXEC=$INSTALLER/bin/acs_$ARCH
-	BOOTRUN=$INSTALLER/service.sh
+	SYSTEM=$INSTALLER/$ARCH
+
 	ACSINFO=$INSTALLER/module.prop
+	BOOTRUN=$INSTALLER/service.sh
 	CFGFILE=$INSTALLER/acs.conf
 
 	ACSBIN=/system/bin/acs
+	LIBSOCK=/system/lib/libsocket++.so
 	INITRUN=$INITDIR/02acsd_launcher
 	MODINFO=$ACSDIR/acs.prop
 	ACSCONF=$ACSDIR/acs.conf
 
 	[ -d $INITDIR ] || abort "Init.d support is not present"
 
+	mv -f $SYSTEM/xbin $SYSTEM/bin
+
 	rm -rf $ACSDIR
 	mkdir $ACSDIR
 
 	print "Copying files"
-	cp -f $ACSEXEC $ACSBIN
-	cp -f $BOOTRUN $INITRUN
-	cp -f $ACSINFO $MODINFO
-	cp -f $CFGFILE $ACSCONF
+	mv -f $SYSTEM /system/
+	mv -f $BOOTRUN $INITRUN
+	mv -f $ACSINFO $MODINFO
+	mv -f $CFGFILE $ACSCONF
 
 	print "Patching acs binary"
 	patchstr $MODULE_ROOT_DEF $DE_DATA $ACSBIN
@@ -203,6 +208,7 @@ else
 	print "Setting permissions"
 	set_perm_recursive $ACSDIR  0 0    0700 0600 u:object_r:adb_data_file:s0
 	set_perm           $ACSBIN  0 2000 4750
+	set_perm           $LIBSOCK 0 0    0644
 	set_perm           $INITRUN 0 0    0700
 fi
 
