@@ -156,9 +156,9 @@ if $SYSTEMLESS; then
 	mkdir -p $ACSDIR
 
 	print "Copying files"
-	mv -f $SYSTEM $MAGIC_SYSTEM
-	mv -f $MAGIC_SYSTEM/xbin $BINDIR
-	mv -f $BOOTRUN $ACSINFO $CFGFILE $ACSDIR/
+	cp -rf $SYSTEM $MAGIC_SYSTEM
+	mv -f  $MAGIC_SYSTEM/xbin $BINDIR
+	cp -f  $BOOTRUN $ACSINFO $CFGFILE $ACSDIR/
 
 	touch $ACSDIR/auto_mount
 
@@ -197,10 +197,10 @@ else
 	mkdir $ACSDIR
 
 	print "Copying files"
-	mv -f $SYSTEM /system/
-	mv -f $BOOTRUN $INITRUN
-	mv -f $ACSINFO $MODINFO
-	mv -f $CFGFILE $ACSCONF
+	cp -rf $SYSTEM /system/
+	cp -f  $BOOTRUN $INITRUN
+	cp -f  $ACSINFO $MODINFO
+	cp -f  $CFGFILE $ACSCONF
 
 	print "Patching acs binary"
 	patchstr $MODULE_ROOT_DEF $DE_DATA $ACSBIN
