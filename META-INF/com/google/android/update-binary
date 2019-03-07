@@ -16,19 +16,19 @@
 # You should have received a copy of the GNU General Public License
 # along with ACSwitch.  If not, see <https://www.gnu.org/licenses/>.
 
-OUTFD=$2
-ZIPFILE=$3
-
 INSTALLER=/dev/ACSwitch
+
+MODULE_ROOT_DEF=/data/adb/modules
 
 MIN_API=21
 
-BOOTMODE=false
+OUTFD=$2
+ZIPFILE=$3
+
 DE_DATA=/data/adb
+BOOTMODE=false
 MAGISK_VER=00000
 SYSTEMLESS=true
-
-MODULE_ROOT_DEF=$DE_DATA/modules
 
 exec 2>/dev/ACSwitch_install.log
 
