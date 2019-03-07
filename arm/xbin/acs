@@ -1,4 +1,8 @@
 #!/system/bin/sh
 
-echo >&2 "I should be a binary, build error?"
-exit 1
+abort() {
+	echo >&2 "ERROR: $1"
+	exit 1
+}
+
+abort "I should be a binary, build error?"

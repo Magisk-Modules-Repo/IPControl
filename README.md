@@ -6,7 +6,6 @@
 
 * [Git Repository](https://github.com/sjaymin1001/ACSwitch-module)
 * [Build Git Repo](https://github.com/sjaymin1001/ACSwitch-build)
-* [Support Thread](https://www.google.co.in/)
 
 ## Introduction
 
@@ -19,9 +18,9 @@
   specified disable threshold and enable it back when level is lower than enable
   threshold. This works autonomous, and always...
 
-* ... while you can also enable/disable charging whenever you want via ACSwitch
-  Methods using commandline interface. You can find more details on commandline
-  below.
+* ... while you can also enable/disable charging whenever you want via charging
+  methods using commandline interface. You can find more details on commandline
+  in 'Usage' section below.
 
 ## Requirements
 
@@ -33,70 +32,61 @@
 
 * Simply flash the zip via either Magisk Manager or any custom recovery (TWRP is
   preferred). Note that upgrading ACSwitch wipes previous configs, so you'd have
-  to start all over again with configuring it.
+  to start all over again with updating configurations.
 
 ## Setup
 
-* You need to configure ACSwitch whenever you install/upgrade it. Please see the
-  commandline section to know how to configure it.
+* You must configure ACSwitch after installing or upgrading, it's also needed if
+  you flash a different kernel (or a whole ROM) on your device. Please see below
+  section to know how to configure it.
 
 ## Usage
 
-* Well, if you don't have a terminal emulator, install it first then. After then
-  you can run `acs [<option> [<args>...]...]` from terminal emulator.
+* ACSwitch does not offer graphical interface, so you must use a terminal to use
+  it. If you don't have a terminal app, then you can install one from Play Store
+  or F-Droid, etc...
+
+* Usage: `acs [<option> [<args>...]...]`
 
     Options:
 
-        acs --toggle
+        [--toggle]      Toggle Automation on or off.
 
-            Toggle Automation on or off.
+        [--update] <thr_disable> <thr_enable>
 
-        acs --update <thr_disable> <thr_enable>
+                        Set enable threshold and disable threshold to thr_enable
+                        and thr_disable respectively.
+                        Omitting thresholds will reset them to their defaults.
 
-            Set disable threshold to thr_disable and similarly.
-            Omitting values will reset them to their defaults.
+        [--method] <format_str>
 
-        acs --method <format_str>
+                        Run a charging method, manually switch charging based on
+                        format_str. Here, format string must be
+                        "(e|d)(%|s|m|h)(threshold)" where...
 
-            Enable or disable charging manually based on format_str.
-            Format string must be "(e|d)(%|s|m|h)(threshold)" where...
+                        ... (e|d)     defines if enabling or disabling charging.
+                        ... (%|s|m|h) defines if running based on time or level.
+                        ...           and last is the threshold method runs for.
 
-            ... (e|d) are to determine charging state (enable/disabled).
-            ... (%|s|m|h) determine target threshold type (time/level).
-            ... and (threshold) is the threshold to keep changes until.
+        [--daemon] <action>
 
-        acs --daemon <action>
+                        Launch or kill the ACSwitch daemon.
+                        action can be either of launch or kill.
 
-            Launch or kill the ACSwitch daemon.
-            action can be either launch or kill.
+        [--info]        Print battery information and ACSwitch settings.
 
-        acs --info
+        [--configure]   Configure ACSwitch.
 
-            Provides some information about battery and ACSwitch settings.
-
-        acs --configure
-
-            (Re)Configure ACSwitch. This is required on install/upgrades.
-
-        acs --help
-
-            Print this usage document.
+        [--help]        Print this usage document.
 
 ## Support
 
-* Please feel free to post any feature requests or bugreports at Support Thread.
-  I will try my best to implement/fix the report.
-
-* Please post complete terminal output, possibly screenshots if you're reporting
-  bugs. ACSwitch does not generate logfiles, so that's everything what I need.
-
-* For installation errors, you need to save /dev/ACSwitch_install.log right away
-  following the failure and provide it to me.
+* Just tell me what happens in detail at the thread and I'll tell you what next.
 
 ## Thanks To
 
-* Huge thanks to @VR-25, providing their control files' database with open heart
-  making development on ACSwitch easier than ever.
+* Thanks to @VR-25 for their control files' database making ACSwitch development
+  easier than ever, and thanks to me for creating this beautiful ACSwitch.
 
 ## Legal
 
@@ -104,8 +94,9 @@
 
 ## Source Code
 
-* Source code of this entire project can be found in the Build Repo (submodules
-  contain actual sources, Build Repo just provides build scripts).
+* Source code of entire ACSwitch project can be found in the Build Repo, just be
+  sure to clone recursively (including submodules), Build Repo gathers all small
+  parts (projects) together and provides scripts to build them.
 
 ## Changelog
 
