@@ -30,8 +30,8 @@
 
 ## Installation
 
-* Simply flash the zip via either Magisk Manager or any custom recovery (TWRP is
-  preferred). Note that upgrading ACSwitch wipes previous configs, so you'd have
+* Simply flash the zip via either Magisk Manager or any custom recovery, TWRP is
+  preferred. Note that upgrading ACSwitch wipes previous configs, so you'll have
   to start all over again with updating configurations.
 
 ## Setup
