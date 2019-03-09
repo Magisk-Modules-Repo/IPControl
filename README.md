@@ -79,6 +79,9 @@
 
         [--help]        Print this usage document.
 
+* To detect whether found switch works correctly, device must be charging whilst
+  configuring, [--configure] will throw an error if it isn't charging.
+
 ## Support
 
 * Just tell me what happens in detail at the thread and I'll tell you what next.
