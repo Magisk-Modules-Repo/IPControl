@@ -4,4 +4,4 @@ version=0.1
 versionCode=1
 author=Jaymin Suthar
 description=ACSwitch allows you to switch charging status based on a configured Automation and even on demand.
-minMagisk=18200
+minMagisk=18105

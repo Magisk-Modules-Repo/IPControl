@@ -37,6 +37,7 @@ ui_print() {
 }
 
 abort() {
+	ui_print " "
 	ui_print "ERROR: $1"
 	cleanup
 	exit 1
@@ -90,12 +91,13 @@ set_perm_recursive() {
 
 ps | grep zygote | grep -v grep >/dev/null && BOOTMODE=true
 
+ui_print " "
 print "Constructing environment"
 
 is_mounted /data || mount /data || abort "Could not mount /data"
 
 MAGISK_VER=$(getprop MAGISK_VER_CODE $DE_DATA/magisk/util_functions.sh)
-[ -n "$MAGISK_VER" ] && [ $MAGISK_VER -gt 18200 ] || SYSTEMLESS=false
+[ -n "$MAGISK_VER" ] && [ $MAGISK_VER -ge 18105 ] || SYSTEMLESS=false
 
 $SYSTEMLESS && RW=ro || RW=rw
 mount -o $RW /system || mount -o $RW,remount /system || abort "Could not mount /system"
@@ -122,16 +124,19 @@ if ! $BOOTMODE; then
 	unset LD_CONFIG_FILE
 fi
 
+ui_print " "
 ui_print "**************************************"
 ui_print "  Advanced Charging Switch Installer  "
 ui_print "**************************************"
 
+ui_print " "
 print "Systemless mode: $SYSTEMLESS"
 print "Device architecture: $ARCH"
 
 rm -rf $INSTALLER
 mkdir -p $INSTALLER
 
+ui_print " "
 print "Unzipping $ZIPFILE"
 unzip -o "$ZIPFILE" -d $INSTALLER >/dev/null
 [ -f $INSTALLER/module.prop ] || abort "Could not extract archive"
@@ -155,6 +160,7 @@ if $SYSTEMLESS; then
 	rm -rf $ACSDIR
 	mkdir -p $ACSDIR
 
+	ui_print " "
 	print "Copying files"
 	cp -rf $SYSTEM $MAGIC_SYSTEM
 	mv -f  $MAGIC_SYSTEM/xbin $BINDIR
@@ -196,6 +202,7 @@ else
 	rm -rf $ACSDIR
 	mkdir $ACSDIR
 
+	ui_print " "
 	print "Copying files"
 	cp -rf $SYSTEM /system/
 	cp -f  $BOOTRUN $INITRUN
@@ -212,6 +219,7 @@ else
 	set_perm           $INITRUN 0 0    0700
 fi
 
+ui_print " "
 ui_print "Installation completed successfully!"
 cleanup
 exit 0
