@@ -20,8 +20,6 @@ INSTALLER=/dev/ACSwitch
 
 MODULE_ROOT_DEF=/data/adb/modules
 
-MIN_API=21
-
 OUTFD=$2
 ZIPFILE=$3
 
@@ -106,9 +104,6 @@ if [ -f /system/init ]; then
 	mount -o move /system /system_root
 	mount -o bind /system_root/system /system
 fi
-
-API=$(getprop ro.build.version.sdk /system/build.prop)
-[ $API -ge $MIN_API ] || abort "Unsupported API ($API) detected"
 
 ARCH=$(getprop ro.product.cpu.abi /system/build.prop)
 case $ARCH in
