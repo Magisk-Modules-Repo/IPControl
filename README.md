@@ -1,6 +1,4 @@
-###### Advanced Charging Switch
-
-###### Copyright (c) 2019 Jaymin Suthar. All rights reserved.
+# Advanced Charging Switch
 
 ## Links
 
@@ -14,73 +12,72 @@
 
 ## Description
 
-* ACSwitch will automatically disable charging when battery level is more than a
-  specified disable threshold and enable it back when level is lower than enable
-  threshold. This works autonomous, and always...
+* ACSwitch automatically disables charging when battery level reaches a specific
+  disable threshold and enables charging back when it hits the enable threshold.
+  This always works (unless a method is running) autonomous in background.
 
-* ... while you can also enable/disable charging whenever you want via charging
-  methods using commandline interface. You can find more details on commandline
-  in 'Usage' section below.
+* You can also manually enable or disable charging via charging methods provided
+  via commandline interface. They can be set to run until certain percentages or
+  for a specific time interval. See 'Usage' section below to know more regarding
+  commandline interface.
 
 ## Requirements
 
-* Magisk v18.2+ (if systemless mode).
+* Magisk v18.2 (18105) or up (if systemless mode).
 * Init.d support (if system mode).
 * Basic knowledge of commandline.
 
 ## Installation
 
-* Simply flash the zip via either Magisk Manager or any custom recovery, TWRP is
-  preferred. Note that upgrading ACSwitch wipes previous configs, so you'll have
-  to start all over again with updating configurations.
+* Simply flash the zip either via Magisk Manager or any custom recovery, TWRP is
+  preferred. Beware that if Magisk is installed, but is older than what is least
+  required, installer will automatically install ACSwitch in system mode, and if
+  you're upgrading it, settings will be wiped and you should update them again.
 
 ## Setup
 
-* You must configure ACSwitch after installing or upgrading, it's also needed if
-  you flash a different kernel (or a whole ROM) on your device. Please see below
-  section to know how to configure it.
+* You must configure ACSwitch each time you flash the zip, this is also required
+  when you flash another kernel or a whole ROM on your device, this step is only
+  required once though. Configuring here means to let ACSwitch understand how to
+  deal with your kernel setup. See 'Usage' below to know how to configure it.
 
 ## Usage
-
-* ACSwitch does not offer graphical interface, so you must use a terminal to use
-  it. If you don't have a terminal app, then you can install one from Play Store
-  or F-Droid, etc...
 
 * Usage: `acs [<option> [<args>...]...]`
 
     Options:
 
-        [--toggle]      Toggle Automation on or off.
+        [--toggle] <state: ON, OFF>
 
-        [--update] <thr_disable> <thr_enable>
+                        Toggle Automation on or off. See 'Description' above for
+                        details about Automation.
 
-                        Set enable threshold and disable threshold to thr_enable
-                        and thr_disable respectively.
-                        Omitting thresholds will reset them to their defaults.
+        [--update] <thr_disable: 0 <= i <= 100> <thr_enable: 0 <= i <= 100>
 
-        [--method] <format_str>
+                        Set Automation disable threshold and enable threshold to
+                        thr_disable and thr_enable respectively. Omitting values
+                        will reset them to their defaults.
+
+        [--method] <format_str: (e|d)(%: 0 <= i <= 100|s|m|h)(threshold)>
 
                         Run a charging method, manually switch charging based on
-                        format_str. Here, format string must be
-                        "(e|d)(%|s|m|h)(threshold)" where...
+                        format_str. Here, format string has elements...
 
                         ... (e|d)     defines if enabling or disabling charging.
                         ... (%|s|m|h) defines if running based on time or level.
                         ...           and last is the threshold method runs for.
 
-        [--daemon] <action>
+        [--configure]
+
+                        Configure ACSwitch. To determine whether found switch is
+                        working correctly, device must be charging while running
+                        this option. This process may take a few minutes.
+
+        [--daemon] <action: launch, kill>
 
                         Launch or kill the ACSwitch daemon.
-                        action can be either of launch or kill.
 
         [--info]        Print battery information and ACSwitch settings.
-
-        [--configure]   Configure ACSwitch.
-
-        [--help]        Print this usage document.
-
-* To detect whether found switch works correctly, device must be charging whilst
-  configuring, [--configure] will throw an error if it isn't charging.
 
 ## Support
 
@@ -88,18 +85,19 @@
 
 ## Thanks To
 
-* Thanks to @VR-25 for their control files' database making ACSwitch development
-  easier than ever, and thanks to me for creating this beautiful ACSwitch.
+* @VR-25 for their control files' database which makes ACSwitch development very
+  easy, and also me for creating this beautiful ACSwitch project.
 
 ## Legal
 
+* Copyright (c) 2019 Jaymin Suthar. All rights reserved.
 * See file NOTICE in project root for licensing information and more details.
 
 ## Source Code
 
 * Source code of entire ACSwitch project can be found in the Build Repo, just be
-  sure to clone recursively (including submodules), Build Repo gathers all small
-  parts (projects) together and provides scripts to build them.
+  sure to include submodules while cloning, Build Repo contains every subproject
+  as a submodule and provides scripts to build them into ACSwitch as a whole.
 
 ## Changelog
 
