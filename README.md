@@ -67,6 +67,9 @@
                         ... (%|s|m|h) defines if running based on time or level.
                         ...           and last is the threshold method runs for.
 
+                        Second and third elements are optional, they're supposed
+                        to keep method running up until given condition is met.
+
         [--configure]
 
                         Configure ACSwitch. To determine whether found switch is
