@@ -2,8 +2,8 @@
 
 ## Links
 
-* [Git Repository](https://github.com/sjaymin1001/ACSwitch-module)
-* [Build Git Repo](https://github.com/sjaymin1001/ACSwitch-build)
+* [Module Repo](https://github.com/sjaymin1001/ACSwitch-module)
+* [Native Repo](https://github.com/sjaymin1001/ACSwitch)
 
 ## Introduction
 
@@ -95,12 +95,6 @@
 
 * Copyright (c) 2019 Jaymin Suthar. All rights reserved.
 * See file NOTICE in project root for licensing information and more details.
-
-## Source Code
-
-* Source code of entire ACSwitch project can be found in the Build Repo, just be
-  sure to include submodules while cloning, Build Repo contains every subproject
-  as a submodule and provides scripts to build them into ACSwitch as a whole.
 
 ## Changelog
 
