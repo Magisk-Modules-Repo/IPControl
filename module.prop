@@ -3,5 +3,5 @@ name=Advanced Charging Switch
 version=0.1
 versionCode=1
 author=Jaymin Suthar
-description=ACSwitch allows you to switch charging status based on a configured Automation and even on demand.
+description=ACSwitch allows you to switch charging status based on configured Automation and on demand.
 minMagisk=18105

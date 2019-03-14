@@ -1,103 +1,99 @@
 # Advanced Charging Switch
 
-## Links
-
-* [Module Repo](https://github.com/sjaymin1001/ACSwitch-module)
-* [Native Repo](https://github.com/sjaymin1001/ACSwitch)
-
-## Introduction
-
-* ACSwitch allows you to switch charging status based on a configured Automation
-  and even on demand.
+### ACSwitch allows you to switch charging status based on configured Automation and on demand.
 
 ## Description
 
-* ACSwitch automatically disables charging when battery level reaches a specific
-  disable threshold and enables charging back when it hits the enable threshold.
-  This always works (unless a method is running) autonomous in background.
+ACSwitch will automatically disable charging when battery level hits a specified
+disable threshold and enable it back when a specific enable threshold is hit. It
+is handled by a daemon which works always in background. This part is considered
+Automation...
 
-* You can also manually enable or disable charging via charging methods provided
-  via commandline interface. They can be set to run until certain percentages or
-  for a specific time interval. See 'Usage' section below to know more regarding
-  commandline interface.
+... and you can also manually enable, or disable charging using charging methods
+provided by the commandline interface. They can be set to run until a level hits
+or for a time interval.
+
+See first two options in 'Usage' section to know how to setup Automation and 3rd
+command regarding charging methods.
 
 ## Requirements
 
-* Magisk v18.2 (18105) or up (if systemless mode).
-* Init.d support (if system mode).
-* Basic knowledge of commandline.
+1. Android Lollipop (5.0) or newer.
+2. Modern ARM or x86 based chipset.
+2. Magisk v18.2 (18105) or newer (if systemless mode).
+3. Init.d support (if system mode).
+4. Basic knowledge of commandline.
 
 ## Installation
 
-* Simply flash the zip either via Magisk Manager or any custom recovery, TWRP is
-  preferred. Beware that if Magisk is installed, but is older than what is least
-  required, installer will automatically install ACSwitch in system mode, and if
-  you're upgrading it, settings will be wiped and you should update them again.
+ACSwitch supports both, Magisk systemless and standard /system installations. To
+install, simply flash the zip using either Magisk Manager or any custom recovery
+and the installer will automatically detect installation mode.
+
+Beware that if Magisk is installed, but is older than what is required at least,
+the installer will automatically install ACSwitch in /system mode, and upgrading
+always wipes previous settings, so you should update them again.
 
 ## Setup
 
-* You must configure ACSwitch each time you flash the zip, this is also required
-  when you flash another kernel or a whole ROM on your device, this step is only
-  required once though. Configuring here means to let ACSwitch understand how to
-  deal with your kernel setup. See 'Usage' below to know how to configure it.
+You must configure ACSwitch each time after either flashing the zip, a kernel or
+a ROM, this step is required only once. See '[--configure]' in 'Usage' section.
 
 ## Usage
 
-* Usage: `acs [<option> [<args>...]...]`
+`acs [<option> [<args>...]...]`
 
     Options:
 
         [--toggle] <state: ON, OFF>
 
-                        Toggle Automation on or off. See 'Description' above for
-                        details about Automation.
+                        Toggle Automation status on or off.
 
-        [--update] <thr_disable: 0 <= i <= 100> <thr_enable: 0 <= i <= 100>
+        [--update] <thr_disable: integer> <thr_enable: integer>
 
                         Set Automation disable threshold and enable threshold to
-                        thr_disable and thr_enable respectively. Omitting values
-                        will reset them to their defaults.
+                        thr_disable and thr_enable respectively. Thresholds will
+                        be reset if none were specified.
 
-        [--method] <format_str: (e|d)(%: 0 <= i <= 100|s|m|h)(threshold)>
+        [--method] <format_str: (e|d)(%: integer|s|m|h)(threshold)>
 
-                        Run a charging method, manually switch charging based on
-                        format_str. Here, format string has elements...
+                        Run a charging method (manually switch charging based on
+                        format_str). Here, format_str may have...
 
-                        ... (e|d)     defines if enabling or disabling charging.
-                        ... (%|s|m|h) defines if running based on time or level.
-                        ...           and last is the threshold method runs for.
+                        ... (e|d)     defining if to enable or disable charging,
+                        ... (%|s|m|h) defining if to run until a level is hit or
+                                      for specified seconds, minutes or hours,
+                        ...           and this is the threshold method runs for.
 
-                        Second and third elements are optional, they're supposed
-                        to keep method running up until given condition is met.
+                        Only the element specifying charging state is necessary.
 
         [--configure]
 
-                        Configure ACSwitch. To determine whether found switch is
-                        working correctly, device must be charging while running
-                        this option. This process may take a few minutes.
+                        Configure ACSwitch. To properly configure ACSwitch, your
+                        device must be charging or else it will likely fail with
+                        an error.
 
         [--daemon] <action: launch, kill>
 
-                        Launch or kill the ACSwitch daemon.
+                        Launch or kill the ACSwitch daemon. Remember, Automation
+                        and charging methods, both depend on the daemon to work.
 
         [--info]        Print battery information and ACSwitch settings.
 
 ## Support
 
-* Just tell me what happens in detail at the thread and I'll tell you what next.
-
-## Thanks To
-
-* @VR-25 for their control files' database which makes ACSwitch development very
-  easy, and also me for creating this beautiful ACSwitch project.
+Just ask me your concern in detail in [this Telegram group](https://t.me/joinchat/JUfXGwuAuzKxo5boALVf1w)
+and I will assist you with relevant necessities.
 
 ## Legal
 
-* Copyright (c) 2019 Jaymin Suthar. All rights reserved.
-* See file NOTICE in project root for licensing information and more details.
+Thanks to VR25 @ xda-developers for providing their control files' database.
+
+Copyright (c) 2019 Jaymin Suthar. All rights reserved.
+See file NOTICE in project root for licensing information and more details.
 
 ## Changelog
 
 #### 1.0
 
-* Initial release.
+- Initial release.

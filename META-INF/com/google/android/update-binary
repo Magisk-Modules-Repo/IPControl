@@ -136,6 +136,7 @@ print "Unzipping $ZIPFILE"
 unzip -o "$ZIPFILE" -d $INSTALLER >/dev/null
 [ -f $INSTALLER/module.prop ] || abort "Could not extract archive"
 
+ui_print " "
 ui_print "Installing..."
 
 if $SYSTEMLESS; then
