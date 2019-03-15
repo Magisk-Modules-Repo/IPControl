@@ -97,6 +97,10 @@ See file NOTICE in project root for licensing information and more details.
 
 ## Changelog
 
+#### 0.2
+
+- Link acs binaries statically to fix missing libc++_shared.so.
+
 #### 0.1.1
 
 - Update documentations.
