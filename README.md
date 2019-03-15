@@ -80,6 +80,9 @@ a ROM, this step is required only once. See '[--configure]' in 'Usage' section.
 
         [--info]        Print battery information and ACSwitch settings.
 
+Note that ACSwitch does not print anything but errors, if any, on terminal, thus
+if everything is working as expected, you will find nothing on terminal screen.
+
 ## Support
 
 Just ask me your concern in detail in [this Telegram group](https://t.me/joinchat/JUfXGwuAuzKxo5boALVf1w)
