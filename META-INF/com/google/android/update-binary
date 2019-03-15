@@ -143,24 +143,23 @@ if $SYSTEMLESS; then
 	MODULE_ROOT=$DE_DATA/modules_update
 	ACSDIR=$MODULE_ROOT/ACSwitch
 
-	SYSTEM=$INSTALLER/$ARCH
-
-	MAGIC_SYSTEM=$ACSDIR/system
+	SYSTEM=$INSTALLER/system
 
 	ACSINFO=$INSTALLER/module.prop
 	BOOTRUN=$INSTALLER/service.sh
+	ACSEXEC=$INSTALLER/bin/acs_$ARCH
 	CFGFILE=$INSTALLER/acs.conf
 
 	[ -d /system/xbin ] && BINDIR=$ACSDIR/system/xbin || BINDIR=$ACSDIR/system/bin
 
 	rm -rf $ACSDIR
-	mkdir -p $ACSDIR
+	mkdir -p $BINDIR
 
 	ui_print " "
 	print "Copying files"
-	cp -rf $SYSTEM $MAGIC_SYSTEM
-	mv -f  $MAGIC_SYSTEM/xbin $BINDIR
-	cp -f  $BOOTRUN $ACSINFO $CFGFILE $ACSDIR/
+	cp -f $ACSEXEC $BINDIR/
+	mv -f $BINDIR/acs_* $BINDIR/acs
+	cp -f $ACSINFO $BOOTRUN $CFGFILE $ACSDIR/
 
 	touch $ACSDIR/auto_mount
 
@@ -179,31 +178,27 @@ else
 
 	INITDIR=/system/etc/init.d
 
-	SYSTEM=$INSTALLER/$ARCH
-
 	ACSINFO=$INSTALLER/module.prop
 	BOOTRUN=$INSTALLER/service.sh
+	ACSEXEC=$INSTALLER/bin/acs_$ARCH
 	CFGFILE=$INSTALLER/acs.conf
 
 	ACSBIN=/system/bin/acs
-	LIBSOCK=/system/lib/libsocket++.so
-	INITRUN=$INITDIR/02acsd_launcher
 	MODINFO=$ACSDIR/acs.prop
+	INITRUN=$INITDIR/02acsd_launcher
 	ACSCONF=$ACSDIR/acs.conf
 
 	[ -d $INITDIR ] || abort "Init.d support is not present"
-
-	mv -f $SYSTEM/xbin $SYSTEM/bin
 
 	rm -rf $ACSDIR
 	mkdir $ACSDIR
 
 	ui_print " "
 	print "Copying files"
-	cp -rf $SYSTEM /system/
-	cp -f  $BOOTRUN $INITRUN
-	cp -f  $ACSINFO $MODINFO
-	cp -f  $CFGFILE $ACSCONF
+	cp -f $ACSINFO $MODINFO
+	cp -f $BOOTRUN $INITRUN
+	cp -f $ACSEXEC $ACSBIN
+	cp -f $CFGFILE $ACSCONF
 
 	print "Patching acs binary"
 	patchstr $MODULE_ROOT_DEF $DE_DATA $ACSBIN
@@ -211,7 +206,6 @@ else
 	print "Setting permissions"
 	set_perm_recursive $ACSDIR  0 0    0700 0600 u:object_r:adb_data_file:s0
 	set_perm           $ACSBIN  0 2000 4750
-	set_perm           $LIBSOCK 0 0    0644
 	set_perm           $INITRUN 0 0    0700
 fi
 
