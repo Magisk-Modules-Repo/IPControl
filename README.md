@@ -97,6 +97,10 @@ See file NOTICE in project root for licensing information and more details.
 
 ## Changelog
 
-#### 1.0
+#### 0.1.1
+
+- Update documentations.
+
+#### 0.1
 
 - Initial release.
