@@ -143,8 +143,6 @@ if $SYSTEMLESS; then
 	MODULE_ROOT=$DE_DATA/modules_update
 	ACSDIR=$MODULE_ROOT/ACSwitch
 
-	SYSTEM=$INSTALLER/system
-
 	ACSINFO=$INSTALLER/module.prop
 	BOOTRUN=$INSTALLER/service.sh
 	ACSEXEC=$INSTALLER/bin/acs_$ARCH
