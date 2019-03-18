@@ -20,9 +20,8 @@ command regarding charging methods.
 
 1. Android Lollipop (5.0) or newer.
 2. Modern ARM or x86 based chipset.
-2. Magisk v18.2 (18105) or newer (if systemless mode).
-3. Init.d support (if system mode).
-4. Basic knowledge of commandline.
+3. If systemless mode, Magisk v18.2 (18105) or newer,
+4. or else, any root solution and Init.d support.
 
 ## Installation
 

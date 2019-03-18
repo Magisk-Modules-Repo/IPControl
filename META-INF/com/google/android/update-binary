@@ -155,8 +155,7 @@ if $SYSTEMLESS; then
 
 	ui_print " "
 	print "Copying files"
-	cp -f $ACSEXEC $BINDIR/
-	mv -f $BINDIR/acs_* $BINDIR/acs
+	cp -f $ACSEXEC $BINDIR/acs
 	cp -f $ACSINFO $BOOTRUN $CFGFILE $ACSDIR/
 
 	touch $ACSDIR/auto_mount
@@ -169,7 +168,7 @@ if $SYSTEMLESS; then
 
 	print "Setting permissions"
 	set_perm_recursive $ACSDIR 0 0    0755 0644
-	set_perm_recursive $BINDIR 0 2000 0755 4755
+	set_perm_recursive $BINDIR 0 2000 0755 0755
 
 else
 	ACSDIR=$DE_DATA/ACSwitch
@@ -189,7 +188,7 @@ else
 	[ -d $INITDIR ] || abort "Init.d support is not present"
 
 	rm -rf $ACSDIR
-	mkdir $ACSDIR
+	mkdir -p $ACSDIR
 
 	ui_print " "
 	print "Copying files"
@@ -203,7 +202,7 @@ else
 
 	print "Setting permissions"
 	set_perm_recursive $ACSDIR  0 0    0700 0600 u:object_r:adb_data_file:s0
-	set_perm           $ACSBIN  0 2000 4750
+	set_perm           $ACSBIN  0 2000 0750
 	set_perm           $INITRUN 0 0    0700
 fi
 
