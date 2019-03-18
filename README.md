@@ -37,7 +37,13 @@ always wipes previous settings, so you should update them again.
 ## Setup
 
 You must configure ACSwitch each time after either flashing the zip, a kernel or
-a ROM, this step is required only once. See '[--configure]' in 'Usage' section.
+a ROM, see '[--configure]' below. After it succeeds, you should set it up to fit
+your needs. Here is what an ideal setup should be like...
+
+    su
+    acs --configure     # Device must be charging while running this.
+    acs --update 70 60  # These are already the defaults, replace '70 60'.
+    acs --daemon launch # Just in case the daemon had been killed.
 
 ## Usage
 
