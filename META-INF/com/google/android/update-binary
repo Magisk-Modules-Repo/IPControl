@@ -47,10 +47,12 @@ print() {
 
 cleanup() {
 	rm -rf $INSTALLER
-	umount -l /system_root
-	umount -l /system
-	umount -l /data
-	umount -l /dev/random
+	if ! $BOOTMODE; then
+		umount -l /system_root
+		umount -l /system
+		umount -l /data
+		umount -l /dev/random
+	fi
 }
 
 is_mounted() {
