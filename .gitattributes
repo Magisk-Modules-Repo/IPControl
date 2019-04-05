@@ -5,5 +5,4 @@
 *.prop	text	eol=lf
 *.sh	text	eol=lf
 
-arm/**	binary
-x86/**	binary
+bin/**	binary

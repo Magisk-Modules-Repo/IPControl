@@ -34,7 +34,7 @@ not like).
 
 You must configure ACSwitch each time after either flashing the zip, a kernel or
 a ROM. After it configures itself, you should set it up to suit your needs. Here
-is what an ideal setup should be like...
+is what a minimal setup should be like...
 
     su                  # Returns a root shell session.
     acs --configure     # Configures ACSwitch, device must be charging.
@@ -81,9 +81,6 @@ Every option below must be executed with escalated privileges, i.e., `su`.
 
         [--info]        Print battery information and ACSwitch settings.
 
-Note that all commandline operations are performed silently, so if everything is
-working as expected, you will see no output on terminal screen.
-
 ## Support
 
 Just tell me your concern in detail in [this Telegram group](https://t.me/joinchat/JUfXGwuAuzKxo5boALVf1w)
@@ -94,13 +91,10 @@ and I will assist you with relevant necessities.
 Thanks to VR25 @ xda-developers for providing their control files' database.
 
 Copyright (c) 2019 Jaymin Suthar. All rights reserved.
+
 See file NOTICE in project root for licensing information and more details.
 
 ## Changelog
-
-#### 0.2
-
-- Link acs binaries statically to fix missing libc++_shared.so.
 
 #### 0.1.1
 
