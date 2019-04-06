@@ -47,39 +47,39 @@ is what a minimal setup should be like...
 
 Every option below must be executed with escalated privileges, i.e., `su`.
 
-    Options:
+Options:
 
-        [--toggle] <state: ON, OFF>
+    [--toggle] <state: ON, OFF>
 
-                        Toggle Automation status on or off.
+        Toggle Automation status on or off.
 
-        [--update] <thr_disable: int> <thr_enable: int>
+    [--update] <thr_disable: int> <thr_enable: int>
 
-                        Set Automation disable threshold and enable threshold to
-                        thr_disable and thr_enable respectively. Thresholds will
-                        be reset if none were specified.
+        Set Automation disable threshold and enable threshold to
+        thr_disable and thr_enable respectively. Thresholds will
+        be reset if none were specified.
 
-        [--method] <format_str: (e|d)(%: int|s|m|h)(threshold)>
+    [--method] <format_str: (e|d)(%: int|s|m|h)(threshold)>
 
-                        Run a charging method. Here, format_str may have...
+        Run a charging method. Here, format_str may have...
 
-                        ... (e|d)     defines if enabling or disabling charging,
-                        ... (%|s|m|h) defines if running until a level is hit or
-                                      for specified seconds, minutes or hours,
-                        ...           and this is the threshold method runs for.
+        ... (e|d)     defines if enabling or disabling charging,
+        ... (%|s|m|h) defines if running until a level is hit or
+                      for specified seconds, minutes or hours,
+        ...           and this is the threshold method runs for.
 
-                        Only the element specifying charging state is necessary.
+        Only the element specifying charging state is necessary.
 
-        [--configure]
+    [--configure]
 
-                        Configure ACSwitch, while your device must be charging.
+        Configure ACSwitch, while your device must be charging.
 
-        [--daemon] <action: launch, kill>
+    [--daemon] <action: launch, kill>
 
-                        Launch or kill the ACSwitch daemon. Note that Automation
-                        and charging methods, both depend on the daemon.
+        Launch or kill the ACSwitch daemon. Note that Automation
+        and charging methods, both depend on the daemon.
 
-        [--info]        Print battery information and ACSwitch settings.
+    [--info]    Print battery information and ACSwitch settings.
 
 ## Support
 
