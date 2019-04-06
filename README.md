@@ -100,6 +100,18 @@ See file NOTICE in project root for licensing information and more details.
 
 ## Changelog
 
+#### 0.2
+
+- Add support for the newer Magisk module template.
+- Fix device freezing after flashing from Magisk Manager.
+- Fix 'libc++_shared.so library not found' errors.
+- Fix empty or partial messages printed on terminal.
+- Fix read/writing on socket giving I/O errors.
+- Remove seteuid support, 'su' must be ran before 'acs'.
+- Stop logging to Android system, improve performance.
+- Code optimizations.
+- Update documentations.
+
 #### 0.1.1
 
 - Update documentations.
