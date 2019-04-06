@@ -134,7 +134,7 @@ on_install() {
   # Extend/change the logic to whatever you want
 
   # Note that though LATESTARTSERVICE is disabled in config section above, we actually
-  # copy service.sh to modules' folder. This is done to make this work without changing
+  # copy service.sh to modules folder. This is done to make this work without changing
   # original ACSwitch module structure.
 
   [ -d /system/xbin ] && BINDIR=$MODPATH/system/xbin || BINDIR=$MODPATH/system/bin
@@ -142,14 +142,14 @@ on_install() {
   mkdir -p $BINDIR
 
   case $ARCH in
-    arm*) ARCH_=arm ;;
-    x86*) ARCH_=x86 ;;
+    arm*) ARCH_32BIT=arm ;;
+    x86*) ARCH_32BIT=x86 ;;
   esac
 
   ui_print "- Extracting module files"
-  unzip -o "$ZIPFILE" bin/acs_$ARCH_ service.sh acs.conf -d $MODPATH >&2
+  unzip -o "$ZIPFILE" bin/acs_$ARCH_32BIT service.sh acs.conf -d $MODPATH >&2
 
-  mv -f $MODPATH/bin/acs_$ARCH_ $BINDIR/
+  mv -f $MODPATH/bin/acs_$ARCH_32BIT $BINDIR/acs
   rm -rf $MODPATH/bin
 }
 
