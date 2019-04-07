@@ -100,6 +100,13 @@ See file NOTICE in project root for licensing information and more details.
 
 ## Changelog
 
+#### 0.2.1
+
+- Fix 'Incorrect setup' errors even when configuring.
+- Fix 'Device not supported' errors when configuring.
+- Fix daemon blocking exit after killing via cmdline.
+- Some internal code improvements.
+
 #### 0.2
 
 - Add support for the newer Magisk module template.
