@@ -1,7 +1,7 @@
 id=ACSwitch
 name=Advanced Charging Switch
 version=0.2
-versionCode=77
+versionCode=78
 author=Jaymin Suthar
 description=ACSwitch allows you to switch charging status based on configured Automation and on demand.
 minMagisk=18105
