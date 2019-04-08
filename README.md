@@ -81,10 +81,6 @@ Options:
 
     [--info]    Print battery information and ACSwitch settings.
 
-Note that no progress messages are printed to terminal. If you need to check for
-success, you can do so by checking return value of the process which must be '0'
-on success.
-
 ## Support
 
 Just tell me your concern in detail in [this Telegram group](https://t.me/joinchat/JUfXGwuAuzKxo5boALVf1w)
