@@ -96,29 +96,37 @@ See file NOTICE in project root for licensing information and more details.
 
 ## Changelog
 
+#### 0.3
+
+- Print success message after option is handled successfully
+- Update internal code
+- Update documentation
+- Never check charger connection status
+- Use only those triggers with an uevent
+
 #### 0.2.1
 
-- Fix 'Incorrect setup' errors even when configuring.
-- Fix 'Device not supported' errors when configuring.
-- Fix daemon blocking exit after killing via cmdline.
-- Some internal code improvements.
+- Fix 'Incorrect setup' errors even when configuring
+- Fix 'Device not supported' errors when configuring
+- Fix daemon blocking exit after killing via cmdline
+- Some internal code improvements
 
 #### 0.2
 
-- Add support for the newer Magisk module template.
-- Fix device freezing after flashing from Magisk Manager.
-- Fix 'libc++_shared.so library not found' errors.
-- Fix empty or partial messages printed on terminal.
-- Fix read/writing on socket giving I/O errors.
-- Remove seteuid support, 'su' must be ran before 'acs'.
-- Stop logging to Android system, improve performance.
-- Code optimizations.
-- Update documentations.
+- Add support for the newer Magisk module template
+- Fix device freezing after flashing from Magisk Manager
+- Fix 'libc++_shared.so library not found' errors
+- Fix empty or partial messages printed on terminal
+- Fix read/writing on socket giving I/O errors
+- Remove seteuid support, 'su' must be ran before 'acs'
+- Stop logging to Android system, improve performance
+- Code optimizations
+- Update documentations
 
 #### 0.1.1
 
-- Update documentations.
+- Update documentations
 
 #### 0.1
 
-- Initial release.
+- Initial release
