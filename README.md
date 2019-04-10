@@ -96,6 +96,10 @@ See file NOTICE in project root for licensing information and more details.
 
 ## Changelog
 
+#### 0.3.1
+
+- Internal code adjustments
+
 #### 0.3
 
 - Print success message after option is handled successfully
