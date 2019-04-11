@@ -1,8 +1,0 @@
-**		text	eol=lf
-
-*.conf	text	eol=lf
-*.md	text	eol=lf
-*.prop	text	eol=lf
-*.sh	text	eol=lf
-
-bin/**	binary
