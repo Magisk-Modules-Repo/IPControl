@@ -21,6 +21,11 @@ See first three options in 'Usage' section regarding Automation and methods.
 3. If systemless mode, Magisk v18.2 (18105) or newer,
 4. or else, any root solution and Init.d support.
 
+## Downloads
+
+Please download the zip [from here](https://github.com/Magisk-Modules-Repo/ACSwitch/releases)
+as installing directly from 'Magisk downloads' enforces Magisk framework.
+
 ## Installation
 
 ACSwitch supports both, Magisk systemless and standard /system installations. To
