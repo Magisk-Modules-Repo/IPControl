@@ -148,9 +148,7 @@ on_install() {
 
   ui_print "- Extracting module files"
   unzip -oj "$ZIPFILE" bin/acs_$ARCH_32BIT service.sh acs.conf -d $MODPATH >&2
-
-  mv -f $MODPATH/bin/acs_$ARCH_32BIT $BINDIR/acs
-  rm -rf $MODPATH/bin
+  mv -f $MODPATH/acs_$ARCH_32BIT $BINDIR/acs
 }
 
 # Only some special files require specific permissions
