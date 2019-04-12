@@ -101,6 +101,11 @@ See file NOTICE in project root for licensing information and more details.
 
 ## Changelog
 
+#### 0.4.0.94
+
+- Inline installer.sh with Magisk/module_installer.sh
+- Update documentations
+
 #### 0.3.1
 
 - Internal code adjustments
