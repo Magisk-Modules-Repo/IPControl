@@ -73,8 +73,6 @@ Options:
                       for specified seconds, minutes or hours,
         ...           and this is the threshold method runs for.
 
-        Only the element specifying charging state is necessary.
-
     [--configure]
 
         Configure ACSwitch, while your device must be charging.
