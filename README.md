@@ -40,7 +40,7 @@ If you aren't a power-user and don't wanna mess with understanding commandline
 (although it's explained well), here is what minimal setup should be like,
 
     su                                    # Obtain a root shell
-    acs --configure                       # Configure ACSwitch
+    acs --init                            # Initialize ACSwitch
     acs --update 70 60                    # Update thresholds, substitute 70 and 60
     acs --daemon launch                   # Launch the daemon
 
@@ -81,13 +81,12 @@ If you aren't a power-user and don't wanna mess with understanding commandline
         -> `acs --method d%40` will disable charging until 40%
         -> `acs --method em30` will enable charging for 30 minutes
 
-    [--configure]
+    [--init]
 
-        Configure ACSwitch, device must be charging concurrently.
-        This option is required each time kernel or ACSwitch is
-        updated.
+        Initialize ACSwitch, device must be charging concurrently.
+        This is required each time kernel or ACSwitch is updated.
 
-        -> `acs --configure` will configure ACSwitch
+        -> `acs --init` will initialize ACSwitch
 
     [--daemon] <action>
 
