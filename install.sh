@@ -133,9 +133,9 @@ on_install() {
   # The following is the default implementation: extract $ZIPFILE/system to $MODPATH
   # Extend/change the logic to whatever you want
 
-  # Note that though LATESTARTSERVICE is disabled in config section above, we actually
-  # copy service.sh to modules folder. This is done to make this work without changing
-  # original ACSwitch module structure.
+  # Although LATESTARTSERVICE is disabled in config section above, we do copy
+  # service.sh to module folder. This is to prevent changing original module
+  # structure.
 
   [ -d /system/xbin ] && BINDIR=$MODPATH/system/xbin || BINDIR=$MODPATH/system/bin
 
