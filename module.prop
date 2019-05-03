@@ -1,7 +1,7 @@
 id=ACSwitch
 name=Advanced Charging Switch
 version=0.4.0.96
-buildVersion=102
+buildVersion=103
 versionCode=101
 author=Jaymin Suthar
 description=ACSwitch basically enables you to switch charging. Check README for more.

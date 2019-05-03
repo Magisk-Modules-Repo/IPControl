@@ -12,7 +12,8 @@ There's one more feature, namingly `method`s, that basically helps in switching
 based on conditions including level and time, but it is recommended only if you
 really need it or have decent knowledge of how phone batteries work.
 
-Please see `Usage` section on manipulating these feature and available options.
+Please see `Commandline` section on manipulating these feature and other available
+options.
 
 ## Requirements
 
@@ -37,24 +38,18 @@ Magisk Manager or TWRP are advised as installation mediums.
 ## Setup
 
 If you aren't a power-user and don't wanna mess with understanding commandline
-(although it's explained well), here is what minimal setup should be like,
+(although it's explained well below), here is what minimal setup should be like,
 
     su                                    # Obtain a root shell
     acs --init                            # Initialize ACSwitch
     acs --update 70 60                    # Update thresholds, substitute 70 and 60
     acs --daemon launch                   # Launch the daemon
 
-## Usage
+## Commandline
 
-`acs [<option> [<args>...]...]`
+    Usage: `acs [<option> [<args>...]...]`
 
-    [--toggle] <status>
-
-        Toggles Automation on or off.
-        <status> can be 'ON' or 'OFF'.
-
-        -> `acs --toggle ON`  will toggle Automation on
-        -> `acs --toggle OFF` will toggle Automation off
+    Options:
 
     [--update] <thr_disable> <thr_enable>
 
@@ -65,6 +60,21 @@ If you aren't a power-user and don't wanna mess with understanding commandline
         -> `acs --update 90 80` will set disable threshold to 90
                                 and enable threshold to 80
         -> `acs --update`       will reset thresholds (to 70 60)
+
+    [--toggle] <status>
+
+        Toggles Automation on or off.
+        <status> can be 'ON' or 'OFF'.
+
+        -> `acs --toggle ON`  will toggle Automation on
+        -> `acs --toggle OFF` will toggle Automation off
+
+    [--init]
+
+        Initialize ACSwitch, device must be charging concurrently.
+        This is required each time kernel or ACSwitch is updated.
+
+        -> `acs --init` will initialize ACSwitch
 
     [--method] <format_str>
 
@@ -80,13 +90,6 @@ If you aren't a power-user and don't wanna mess with understanding commandline
         -> `acs --method es60` will enable charging for 60 seconds
         -> `acs --method d%40` will disable charging until 40%
         -> `acs --method em30` will enable charging for 30 minutes
-
-    [--init]
-
-        Initialize ACSwitch, device must be charging concurrently.
-        This is required each time kernel or ACSwitch is updated.
-
-        -> `acs --init` will initialize ACSwitch
 
     [--daemon] <action>
 
