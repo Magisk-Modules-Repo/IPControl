@@ -120,6 +120,13 @@ See file NOTICE in project root for licensing information.
 
 ## Changelog
 
+#### 1.0.0.103
+
+- Require threshold in method calls
+- Rewrite documentations and strings
+- Rename [--configure] to [--init]
+- Add script to debug compatibility
+
 #### 0.4.0.96
 
 - Rebuild binary with new standards
