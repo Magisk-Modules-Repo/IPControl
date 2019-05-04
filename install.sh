@@ -147,7 +147,7 @@ on_install() {
   esac
 
   ui_print "- Extracting module files"
-  unzip -oj "$ZIPFILE" bin/acs_$ARCH_32BIT service.sh acs.conf -d $MODPATH >&2
+  unzip -oj "$ZIPFILE" bin/acs_$ARCH_32BIT debug.sh service.sh acs.conf -d $MODPATH >&2
   mv -f $MODPATH/acs_$ARCH_32BIT $BINDIR/acs
 }
 

@@ -146,6 +146,7 @@ if $SYSTEMLESS; then
 	ACSDIR=$MODULE_ROOT/ACSwitch
 
 	ACSINFO=$INSTALLER/module.prop
+	DEBUGGER=$INSTALLER/debug.sh
 	BOOTRUN=$INSTALLER/service.sh
 	ACSEXEC=$INSTALLER/bin/acs_$ARCH
 	CFGFILE=$INSTALLER/acs.conf
@@ -158,7 +159,7 @@ if $SYSTEMLESS; then
 	ui_print " "
 	print "Copying files"
 	cp -f $ACSEXEC $BINDIR/acs
-	cp -f $ACSINFO $BOOTRUN $CFGFILE $ACSDIR/
+	cp -f $ACSINFO $DEBUGGER $BOOTRUN $CFGFILE $ACSDIR/
 
 	touch $ACSDIR/auto_mount
 
@@ -178,6 +179,7 @@ else
 	INITDIR=/system/etc/init.d
 
 	ACSINFO=$INSTALLER/module.prop
+	DEBUGGER=$INSTALLER/debug.sh
 	BOOTRUN=$INSTALLER/service.sh
 	ACSEXEC=$INSTALLER/bin/acs_$ARCH
 	CFGFILE=$INSTALLER/acs.conf
@@ -185,7 +187,6 @@ else
 	ACSBIN=/system/bin/acs
 	MODINFO=$ACSDIR/acs.prop
 	INITRUN=$INITDIR/02acsd_launcher
-	ACSCONF=$ACSDIR/acs.conf
 
 	[ -d $INITDIR ] || abort "Init.d support is not present"
 
@@ -197,7 +198,7 @@ else
 	cp -f $ACSINFO $MODINFO
 	cp -f $BOOTRUN $INITRUN
 	cp -f $ACSEXEC $ACSBIN
-	cp -f $CFGFILE $ACSCONF
+	cp -f $DEBUGGER $CFGFILE $ACSDIR/
 
 	print "Patching acs binary"
 	patchstr $MODULE_ROOT_DEF $DE_DATA $ACSBIN
