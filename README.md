@@ -120,6 +120,11 @@ See file NOTICE in project root for licensing information.
 
 ## Changelog
 
+#### 1.0.1
+
+- Add support for some new devices
+- Fix syntax error in debug script
+
 #### 1.0.0
 
 - Renamed from `Advanced Charging Switch`
