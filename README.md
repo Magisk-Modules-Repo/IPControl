@@ -120,6 +120,10 @@ See file NOTICE in project root for licensing information.
 
 ## Changelog
 
+#### 1.0.2
+
+- Fix 'Permission denied' errors when initializing
+
 #### 1.0.1
 
 - Add support for some new devices
