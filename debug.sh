@@ -19,8 +19,8 @@
 readonly CACHE_FILE=/cache/ACControl.tempfile
 
 readonly UEVENT=$(
-		ls /sys/class/power_supply/battery/uevent
-	|| ls /sys/class/power_supply/Battery/uevent
+	ls /sys/class/power_supply/battery/uevent ||
+	ls /sys/class/power_supply/Battery/uevent
 )
 
 function print {
