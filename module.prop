@@ -1,0 +1,7 @@
+id=ACControl
+name=Advanced Charging Control
+version=1.0.0
+versionCode=1
+author=Jaymin Suthar
+description=ACControl basically enables you to switch charging. Check README for more.
+minMagisk=18105

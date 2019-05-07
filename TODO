@@ -1,0 +1,2 @@
+- Fix acc.conf missing in some cases. Reason: Unknown!
+- Support Huawei skip_root workaround in debug script.

@@ -1,0 +1,228 @@
+#!/sbin/sh
+
+# Copyright (c) 2019 Jaymin Suthar. All rights reserved.
+#
+# This file is part of "Advanced Charging Control (ACControl)".
+#
+# ACControl is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, only version 3 of the License.
+#
+# ACControl is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with ACControl.  If not, see <https://www.gnu.org/licenses/>.
+
+INSTALLER=/dev/ACControl
+
+MODULE_ROOT_DEF=/data/adb/modules
+
+OUTFD=$2
+ZIPFILE=$3
+
+INITDIR=/system/etc/init.d
+DE_DATA=/data/adb
+BOOTMODE=false
+MAGISK_VER=00000
+SYSTEMLESS=true
+
+exec 2>/dev/ACControl_install.log
+
+ui_print() {
+	$BOOTMODE && echo "$1" || echo -e "ui_print $1\nui_print" >>/proc/self/fd/$OUTFD
+}
+
+abort() {
+	ui_print " "
+	ui_print "ERROR: $1"
+	cleanup
+	exit 1
+}
+
+print() {
+	ui_print "- $1"
+}
+
+cleanup() {
+	rm -rf $INSTALLER
+	if ! $BOOTMODE; then
+		umount -l /system_root
+		umount -l /system
+		umount -l /data
+		umount -l /dev/random
+	fi
+}
+
+is_mounted() {
+	cat /proc/mounts | grep " $1 " >/dev/null
+}
+
+getprop() {
+	cat $2 | sed -n "s/^$1=//p"
+}
+
+patchstr() {
+	ZEROCOUNT=$((${#1} - ${#2}))
+	ZEROES=$(yes "\x0" | head -n $ZEROCOUNT | tr -d "\n")
+	sed -i "s|${1}|${2}${ZEROES}|g" $3
+}
+
+set_perm() {
+	chown $2:$3 $1
+	chmod $4 $1
+	if [ -z "$5" ]; then
+		chcon u:object_r:system_file:s0 $1
+	else
+		chcon $5 $1
+	fi
+}
+
+set_perm_recursive() {
+	find $1/ | while read FILE; do
+		if [ -f $FILE ]; then
+			set_perm $FILE $2 $3 $5 $6
+		else
+			set_perm $FILE $2 $3 $4 $6
+		fi
+	done
+}
+
+ps | grep zygote | grep -v grep >/dev/null && BOOTMODE=true
+
+ui_print " "
+print "Constructing environment"
+
+is_mounted /data || mount /data || abort "Could not mount /data"
+
+MAGISK_VER=$(getprop MAGISK_VER_CODE $DE_DATA/magisk/util_functions.sh)
+[ -n "$MAGISK_VER" ] && [ $MAGISK_VER -ge 18105 ] || SYSTEMLESS=false
+
+$SYSTEMLESS && RW=ro || RW=rw
+mount -o $RW /system || mount -o $RW,remount /system || abort "Could not mount /system"
+if [ -f /system/init ]; then
+	mkdir /system_root
+	mount -o move /system /system_root
+	mount -o bind /system_root/system /system
+fi
+
+API=$(getprop ro.build.version.sdk /system/build.prop)
+[ $API -ge 21 ] || abort "Unsupported platform ($API) detected"
+
+ARCH=$(getprop ro.product.cpu.abi /system/build.prop)
+case $ARCH in
+	arm*) ARCH=arm ;;
+	x86*) ARCH=x86 ;;
+	*) abort "Unsupported architecture ($ARCH) detected" ;;
+esac
+
+$SYSTEMLESS || [ -d $INITDIR ] || abort "Init.d support is not present"
+
+UEVENT_DEF=/sys/class/power_supply/battery/uevent
+
+UEVENT_PATH=$UEVENT_DEF
+[ -f $UEVENT_PATH ] || UEVENT_PATH=/sys/class/power_supply/Battery/uevent
+[ -f $UEVENT_PATH ] || abort "Non-standard device setup detected"
+
+if ! $BOOTMODE; then
+	mount -o bind /dev/urandom /dev/random
+	unset LD_LIBRARY_PATH
+	unset LD_PRELOAD
+	unset LD_CONFIG_FILE
+fi
+
+ui_print " "
+ui_print "**************************************"
+ui_print "  Advanced Charging Control Installer  "
+ui_print "**************************************"
+
+ui_print " "
+print "Systemless mode: $SYSTEMLESS"
+print "Device architecture: $ARCH"
+
+rm -rf $INSTALLER
+mkdir -p $INSTALLER
+
+ui_print " "
+print "Unzipping $ZIPFILE"
+unzip -o "$ZIPFILE" -d $INSTALLER >/dev/null
+[ -f $INSTALLER/module.prop ] || abort "Could not extract archive"
+
+ui_print " "
+ui_print "Installing..."
+
+if $SYSTEMLESS; then
+	MODULE_ROOT=$DE_DATA/modules_update
+	ACCDIR=$MODULE_ROOT/ACControl
+
+	ACCINFO=$INSTALLER/module.prop
+	DEBUGGER=$INSTALLER/debug.sh
+	BOOTRUN=$INSTALLER/service.sh
+	ACCEXEC=$INSTALLER/bin/acc_$ARCH
+	CFGFILE=$INSTALLER/acc.conf
+
+	[ -d /system/xbin ] && BINDIR=$ACCDIR/system/xbin || BINDIR=$ACCDIR/system/bin
+	ACCBIN=$BINDIR/acc
+
+	rm -rf $ACCDIR
+	mkdir -p $BINDIR
+
+	ui_print " "
+	print "Copying files"
+	cp -f $ACCEXEC $ACCBIN
+	cp -f $ACCINFO $DEBUGGER $BOOTRUN $CFGFILE $ACCDIR/
+
+	print "Patching acc binary"
+	patchstr $UEVENT_DEF $UEVENT_PATH $ACCBIN
+
+	touch $ACCDIR/auto_mount
+
+	if $BOOTMODE; then
+		mkdir $MODULE_ROOT_DEF/ACControl
+		cp -f $ACCINFO $MODULE_ROOT_DEF/ACControl/
+		touch $MODULE_ROOT_DEF/ACControl/update
+	fi
+
+	print "Setting permissions"
+	set_perm_recursive $ACCDIR 0 0    0755 0644
+	set_perm_recursive $BINDIR 0 2000 0755 0755
+
+else
+	ACCDIR=$DE_DATA/ACControl
+
+	ACCINFO=$INSTALLER/module.prop
+	DEBUGGER=$INSTALLER/debug.sh
+	BOOTRUN=$INSTALLER/service.sh
+	ACCEXEC=$INSTALLER/bin/acc_$ARCH
+	CFGFILE=$INSTALLER/acc.conf
+
+	ACCBIN=/system/bin/acc
+	MODINFO=$ACCDIR/acc.prop
+	INITRUN=$INITDIR/02accd_launcher
+
+	rm -rf $ACCDIR
+	mkdir -p $ACCDIR
+
+	ui_print " "
+	print "Copying files"
+	cp -f $ACCINFO  $MODINFO
+	cp -f $BOOTRUN  $INITRUN
+	cp -f $ACCEXEC  $ACCBIN
+	cp -f $DEBUGGER $CFGFILE $ACCDIR/
+
+	print "Patching acc binary"
+	patchstr $MODULE_ROOT_DEF $DE_DATA     $ACCBIN
+	patchstr $UEVENT_DEF      $UEVENT_PATH $ACCBIN
+
+	print "Setting permissions"
+	set_perm_recursive $ACCDIR  0 0    0700 0600 u:object_r:adb_data_file:s0
+	set_perm           $ACCBIN  0 2000 0750
+	set_perm           $INITRUN 0 0    0700
+fi
+
+ui_print " "
+ui_print "Installation completed successfully!"
+cleanup
+exit 0
