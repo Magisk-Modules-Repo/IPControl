@@ -112,6 +112,14 @@ See file NOTICE in project root for licensing information.
 
 ## Changelog
 
+#### 1.1.0
+
+- Remove all untested legacy-derived switches
+- Don't check each switch on initialization
+- Update debug script
+- Remove need of initializing on each install
+- Fix heavy resource usage for some devices
+
 #### 1.0.2
 
 - Fix 'Permission denied' errors when initializing
