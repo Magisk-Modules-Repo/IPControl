@@ -41,7 +41,6 @@ If you aren't a power-user and don't wanna mess with understanding commandline
 (although it's explained well below), here is what minimal setup should be like,
 
     su                                    # Obtain a root shell
-    acc --init                            # Initialize ACControl
     acc --update 70 60                    # Update thresholds, substitute 70 and 60
     acc --daemon launch                   # Launch the daemon
 
@@ -68,13 +67,6 @@ If you aren't a power-user and don't wanna mess with understanding commandline
 
         -> `acc --toggle ON`  will toggle Automation on
         -> `acc --toggle OFF` will toggle Automation off
-
-    [--init]
-
-        Initialize ACControl, device must be charging during this.
-        This is required each time kernel or ACControl is updated.
-
-        -> `acc --init` will initialize ACControl
 
     [--method] <format_str>
 
