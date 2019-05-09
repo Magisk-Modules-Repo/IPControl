@@ -156,13 +156,13 @@ on_install() {
   unzip -oj "$ZIPFILE" $ACCFILES -d $MODPATH >&2
   mv -f $MODPATH/acc_$ARCH_32BIT $BINDIR/acc
 
-  ui_print "- Patching acc binary"
-
   UEVENT_DEF=/sys/class/power_supply/battery/uevent
 
   UEVENT_PATH=$UEVENT_DEF
   [ -f $UEVENT_PATH ] || UEVENT_PATH=/sys/class/power_supply/Battery/uevent
   [ -f $UEVENT_PATH ] || abort "! Non-standard device setup detected!"
+
+  ui_print "- Patching acc binary"
 
   sed -i "s|$UEVENT_DEF|$UEVENT_PATH|g" $BINDIR/acc
 }

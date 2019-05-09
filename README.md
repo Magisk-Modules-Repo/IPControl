@@ -40,7 +40,7 @@ Magisk Manager or TWRP are advised as installation mediums.
 If you aren't a power-user and don't wanna mess with understanding commandline
 (although it's explained well below), here is what minimal setup should be like,
 
-    su                                    # Obtain a root shell
+    su                                    # Obtain root shell
     acc --update 70 60                    # Update thresholds, substitute 70 and 60
     acc --daemon launch                   # Launch the daemon
 
