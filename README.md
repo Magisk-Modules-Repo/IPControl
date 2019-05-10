@@ -112,6 +112,10 @@ See file NOTICE in project root for licensing information.
 
 ## Changelog
 
+#### 1.1.1
+
+- Update documentations
+
 #### 1.1.0
 
 - Remove all untested legacy-derived switches
