@@ -101,7 +101,7 @@ If you aren't a power-user and don't wanna mess with understanding commandline
 
 ## Support
 
-Please share your unease in [this Telegram group](https://t.me/joinchat/JUfXGwuAuzKxo5boALVf1w)
+Please share your unease in [this Telegram group](https://t.me/ACControl_Support)
 and I will serve you ASAP with required solutions.
 
 ## Legal
