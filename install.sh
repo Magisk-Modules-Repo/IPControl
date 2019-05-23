@@ -154,6 +154,7 @@ on_install() {
 
   ui_print "- Extracting module files"
   unzip -oj "$ZIPFILE" $ACCFILES -d $MODPATH >&2
+
   mv -f $MODPATH/acc_$ARCH_32BIT $BINDIR/acc
 
   UEVENT_DEF=/sys/class/power_supply/battery/uevent
