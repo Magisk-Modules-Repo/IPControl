@@ -39,9 +39,9 @@ function isCharging {
 exec 2>/cache/ACControl.logfile
 
 echo -e \
-"Please ensure charger is connected. If not, re-run this script after connecting
-it. The entire process may take upto half an hour, please sit back and relax for
-the time being.\n"
+"Please ensure charger is connected. If not, re-run this
+script after connecting it. The entire process may take
+upto half an hour, please sit back and relax meanwhile.\n"
 
 print "Indexing kernel files"
 
@@ -95,5 +95,5 @@ for DELAY in 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1; do
 done
 
 echo -e \
-"\nPlease post output above along with your device name and architecture to the
-Telegram Support group (https://t.me/ACControl_Support)."
+"\nPlease post output above along with your device name and
+architecture to the Telegram Support group."
