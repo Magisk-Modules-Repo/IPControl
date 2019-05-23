@@ -1,3 +1,5 @@
+![ACControl banner](https://i.imgur.com/irgxoyq.png)
+
 # Advanced Charging Control
 
 ### Basically enables you to switch charging.
