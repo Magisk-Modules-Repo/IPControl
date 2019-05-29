@@ -93,13 +93,13 @@ ps | grep zygote | grep -v grep >/dev/null && BOOTMODE=true
 
 print "Constructing environment"
 
-is_mounted /data || mount /data || abort "Could not mount /data"
+is_mounted /data || mount /data || abort "Error occured while mounting /data..."
 
 MAGISK_VER=$(getprop MAGISK_VER_CODE $DE_DATA/magisk/util_functions.sh)
 [ -n "$MAGISK_VER" ] && [ $MAGISK_VER -ge 18105 ] || SYSTEMLESS=false
 
 $SYSTEMLESS && RW=ro || RW=rw
-mount -o $RW /system || mount -o $RW,remount /system || abort "Could not mount /system"
+mount -o $RW /system || mount -o $RW,remount /system || abort "Error occured while mounting /system..."
 if [ -f /system/init ]; then
 	mkdir /system_root
 	mount -o move /system /system_root
@@ -146,7 +146,7 @@ mkdir -p $INSTALLER
 ui_print " "
 print "Unzipping $ZIPFILE"
 unzip -o "$ZIPFILE" -d $INSTALLER >/dev/null
-[ -f $INSTALLER/module.prop ] || abort "Could not extract archive"
+[ -f $INSTALLER/module.prop ] || abort "Error occured while extracting archive..."
 
 ui_print " "
 ui_print "Installing..."
