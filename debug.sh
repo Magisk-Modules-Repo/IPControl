@@ -49,7 +49,7 @@ find /sys -type f -name uevent >$CACHE_FILE
 
 print "Finding usable switch"
 
-for DELAY in 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1; do
+for DELAY in 0.4 0.5 0.6 0.7 0.8 0.9 1; do
 
 	while read MAIN_UEVENT; do
 		if grep -q '^POWER_SUPPLY_NAME=' $MAIN_UEVENT; then
