@@ -2,7 +2,7 @@
 
 # Advanced Charging Control
 
-### Basically enables you to switch charging.
+### Completely native battery charging switching tool written purely in C++ for performance and stability
 
 ## Description
 
