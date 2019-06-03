@@ -122,9 +122,9 @@ REPLACE="
 # Set what you want to display when installing your module
 
 print_modname() {
-  ui_print "*******************************************"
-  ui_print "     Advanced Charging Control Installer    "
-  ui_print "*******************************************"
+  ui_print "*************************************"
+  ui_print "    Input Power Control Installer    "
+  ui_print "*************************************"
 }
 
 # Copy/extract your module files into $MODPATH in on_install.
@@ -150,12 +150,12 @@ on_install() {
     x86*) ARCH_32BIT=x86 ;;
   esac
 
-  ACCFILES="bin/acc_$ARCH_32BIT debug.sh service.sh acc.conf"
+  IPCFILES="bin/ipc_$ARCH_32BIT debug.sh service.sh ipc.conf"
 
   ui_print "- Extracting module files"
-  unzip -oj "$ZIPFILE" $ACCFILES -d $MODPATH >&2
+  unzip -oj "$ZIPFILE" $IPCFILES -d $MODPATH >&2
 
-  mv -f $MODPATH/acc_$ARCH_32BIT $BINDIR/acc
+  mv -f $MODPATH/ipc_$ARCH_32BIT $BINDIR/ipc
 
   UEVENT_DEF=/sys/class/power_supply/battery/uevent
 
@@ -163,9 +163,9 @@ on_install() {
   [ -f $UEVENT_PATH ] || UEVENT_PATH=/sys/class/power_supply/Battery/uevent
   [ -f $UEVENT_PATH ] || cancel "! Non-standard device setup detected!"
 
-  ui_print "- Patching acc binary"
+  ui_print "- Patching ipc binary"
 
-  sed -i "s|$UEVENT_DEF|$UEVENT_PATH|g" $BINDIR/acc
+  sed -i "s|$UEVENT_DEF|$UEVENT_PATH|g" $BINDIR/ipc
 }
 
 # Only some special files require specific permissions

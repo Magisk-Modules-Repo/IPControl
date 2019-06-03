@@ -1,12 +1,12 @@
-![ACControl banner](https://i.imgur.com/irgxoyq.png)
+![IPControl banner](https://i.imgur.com/W8H76eo.png)
 
-# Advanced Charging Control
+# Input Power Control
 
-### Completely native battery charging switching tool written purely in C++ for performance and stability
+### Completely native input power control tool written purely in C++ for performance and stability
 
 ## Description
 
-ACControl automatically switches charging off when battery level reaches a certain
+IPControl automatically switches charging off when battery level reaches a certain
 disable threshold and back on as soon as it drowns to enable threshold. Thus, it
 is kept bouncing between those boundaries. This feature is called `Automation`.
 
@@ -28,13 +28,13 @@ Having either of 3 or 4 would suffice, 3 is favored if both are detected.
 
 ## Downloads
 
-Please obtain release zips [from GitHub releases](https://github.com/Magisk-Modules-Repo/ACControl/releases),
+Please obtain release zips [from GitHub releases](https://github.com/Magisk-Modules-Repo/IPControl/releases),
 downloading from Magisk Manager enforces Magisk framework which forbids some
 installation functions.
 
 ## Installation
 
-Assured your device meets requirements, flash ACControl like any other flashable.
+Assured your device meets requirements, flash IPControl like any other flashable.
 Magisk Manager or TWRP are advised as installation mediums.
 
 ## Setup
@@ -43,12 +43,12 @@ If you aren't a power-user and don't wanna mess with understanding commandline
 (although it's explained well below), here is what minimal setup should be like,
 
     su                                    # Obtain root shell
-    acc --update 70 60                    # Update thresholds, substitute 70 and 60
-    acc --daemon launch                   # Launch the daemon
+    ipc --update 70 60                    # Update thresholds, substitute 70 and 60
+    ipc --daemon launch                   # Launch the daemon
 
 ## Commandline
 
-    Usage: `acc [<option> [<args>...]...]`
+    Usage: `ipc [<option> [<args>...]...]`
 
     Options:
 
@@ -58,17 +58,17 @@ If you aren't a power-user and don't wanna mess with understanding commandline
         resets them to defaults if no values were specified.
         <thr_disable> and <thr_enable> must be integers.
 
-        -> `acc --update 90 80` sets disable threshold to 90
+        -> `ipc --update 90 80` sets disable threshold to 90
                                 and enable threshold to 80
-        -> `acc --update`       resets thresholds to 70 60
+        -> `ipc --update`       resets thresholds to 70 60
 
     [--toggle] <status>
 
         Toggles Automation on or off.
         <status> can be 'ON' or 'OFF'.
 
-        -> `acc --toggle ON`  toggles Automation on
-        -> `acc --toggle OFF` toggles Automation off
+        -> `ipc --toggle ON`  toggles Automation on
+        -> `ipc --toggle OFF` toggles Automation off
 
     [--method] <format_str>
 
@@ -81,29 +81,29 @@ If you aren't a power-user and don't wanna mess with understanding commandline
         ... (%|s|m|h) defines if seeking level or timespan,
         ...           and this is the value of threshold.
 
-        -> `acc --method es60` enables charging for 60 secs
-        -> `acc --method d%40` disables charging until 40%
-        -> `acc --method em30` enables charging for 30 mins
+        -> `ipc --method es60` enables charging for 60 secs
+        -> `ipc --method d%40` disables charging until 40%
+        -> `ipc --method em30` enables charging for 30 mins
 
     [--daemon] <action>
 
         Launches or kills the daemon.
         <action> can be 'launch' or 'kill'.
 
-        -> `acc --daemon launch` launches the daemon
-        -> `acc --daemon kill`   kills the daemon
+        -> `ipc --daemon launch` launches the daemon
+        -> `ipc --daemon kill`   kills the daemon
 
     [--info]
 
-        Print battery details and ACControl settings.
+        Print battery details and IPControl settings.
 
-        -> `acc --info` prints out battery level, charging
+        -> `ipc --info` prints out battery level, charging
                         status, Automation status, disable
                         threshold and enable threshold
 
 ## Support
 
-Please share your unease in [this Telegram group](https://t.me/ACControl_Support)
+Please share your unease in [this Telegram group](https://t.me/IPControl_Support)
 and I will serve you ASAP with required solutions.
 
 ## Legal

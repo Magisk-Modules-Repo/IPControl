@@ -2,21 +2,21 @@
 
 # Copyright (c) 2019 Jaymin Suthar. All rights reserved.
 #
-# This file is part of "Advanced Charging Control (ACControl)".
+# This file is part of "Input Power Control (IPControl)".
 #
-# ACControl is free software: you can redistribute it and/or modify
+# IPControl is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, only version 3 of the License.
 #
-# ACControl is distributed in the hope that it will be useful,
+# IPControl is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with ACControl.  If not, see <https://www.gnu.org/licenses/>.
+# along with IPControl.  If not, see <https://www.gnu.org/licenses/>.
 
-readonly CACHE_FILE=/cache/ACControl.tempfile
+readonly CACHE_FILE=/cache/IPControl.tempfile
 
 readonly UEVENT=$(
 	ls /sys/class/power_supply/battery/uevent ||
@@ -36,7 +36,7 @@ function isCharging {
 	grep -q '=Charging$' $UEVENT
 }
 
-exec 2>/cache/ACControl.logfile
+exec 2>/cache/IPControl.logfile
 
 echo -e \
 "Please ensure charger is connected. If not, re-run this
