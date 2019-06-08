@@ -42,9 +42,9 @@ Magisk Manager or TWRP are advised as installation mediums.
 If you aren't a power-user and don't wanna mess with understanding commandline
 (although it's explained well below), here is what minimal setup should be like,
 
-    su                                    # Obtain root shell
-    ipc --update 70 60                    # Update thresholds, substitute 70 and 60
-    ipc --daemon launch                   # Launch the daemon
+    su                                 # Obtain root shell
+    ipc -u 70 60                       # Update thresholds, substitute 70 and 60
+    ipc -d launch                      # Launch the daemon
 
 ## Commandline
 
@@ -52,25 +52,25 @@ If you aren't a power-user and don't wanna mess with understanding commandline
 
     Options:
 
-    [--update] <thr_disable> <thr_enable>
+    [-u] <thr_disable> <thr_enable>
 
         Updates disable and enable threshold for Automation.
         resets them to defaults if no values were specified.
         <thr_disable> and <thr_enable> must be integers.
 
-        -> `ipc --update 90 80` sets disable threshold to 90
-                                and enable threshold to 80
-        -> `ipc --update`       resets thresholds to 70 60
+        -> `ipc -u 90 80` sets disable threshold to 90 and
+                          enable threshold to 80
+        -> `ipc -u`       resets thresholds to 70 60
 
-    [--toggle] <status>
+    [-t] <status>
 
         Toggles Automation on or off.
         <status> can be 'ON' or 'OFF'.
 
-        -> `ipc --toggle ON`  toggles Automation on
-        -> `ipc --toggle OFF` toggles Automation off
+        -> `ipc -t ON`  toggles Automation on
+        -> `ipc -t OFF` toggles Automation off
 
-    [--method] <format_str>
+    [-m] <format_str>
 
         Run a method based on format string <format_str>.
         Here, format string must follow the pattern:
@@ -81,25 +81,25 @@ If you aren't a power-user and don't wanna mess with understanding commandline
         ... (%|s|m|h) defines if seeking level or timespan,
         ...           and this is the value of threshold.
 
-        -> `ipc --method es60` enables charging for 60 secs
-        -> `ipc --method d%40` disables charging until 40%
-        -> `ipc --method em30` enables charging for 30 mins
+        -> `ipc -m es60` enables charging for 60 seconds
+        -> `ipc -m d%40` disables charging until 40%
+        -> `ipc -m em30` enables charging for 30 minutes
 
-    [--daemon] <action>
+    [-d] <action>
 
         Launches or kills the daemon.
         <action> can be 'launch' or 'kill'.
 
-        -> `ipc --daemon launch` launches the daemon
-        -> `ipc --daemon kill`   kills the daemon
+        -> `ipc -d launch` launches the daemon
+        -> `ipc -d kill`   kills the daemon
 
-    [--info]
+    [-i]
 
         Print battery details and IPControl settings.
 
-        -> `ipc --info` prints out battery level, charging
-                        status, Automation status, disable
-                        threshold and enable threshold
+        -> `ipc -i` prints battery level, charging status,
+                    Automation status, disable threshold
+                    and enable threshold
 
 ## Support
 
