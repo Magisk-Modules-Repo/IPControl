@@ -1,5 +1,27 @@
 ## Changelog
 
+#### 2.0.0
+
+"Advanced Charging Control (ACControl)" is renamed to "Input Power Control (IPControl)"
+due to name clashes with "Advanced Charging Controller (acc)" by @VR-25. You are
+requested to uninstall any version of ACControl yourselves.
+
+- Unlikely to [--help], [-i] exits with success (0) instead of failure (1)
+- Sane sleep delay is reduced to 1 second, resulting in almost instant operations
+- Threads are now synchronized by sane sleep delay, so crashhes because of multi-
+  threaded model should vanish
+- Output of debug script now fits Termux' default window size and many others too
+- README files are garnished with banner designed and contributed by the awesome
+  Gaming_Inc @ Telegram
+- Control files preference order is updated to potentially fix 'level stuck at
+  disable threshold' reports
+- Errors not caused by IPControl are now displayed as 'Error occured while...'
+- Shorter delays are removed from debug script as they introduced unreliability
+- Effective UID is presumed root and is never seteuid(UID_ROOT) due to SELinux
+- Commandline now implements short options (with no GNU extensions) instead of
+  long ones
+- Unused symbols are stripped from binaries, thus greatly reducing binary sizes
+
 #### 1.3.1
 
 Intermediary versions from v1.1.1 to v1.3.1 are lost as I had to reset and setup
