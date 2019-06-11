@@ -1,4 +1,4 @@
-![IPControl banner](https://i.imgur.com/W8H76eo.png)
+![IPControl banner](https://i.imgur.com/6gyQUTZ.png)
 
 # Input Power Control
 
@@ -112,4 +112,4 @@ Copyright (c) 2019 Jaymin Suthar. All rights reserved.
 
 See file NOTICE in project root for licensing information.
 
-## [Changelog](Changelog.md)
+## [Changelog](https://github.com/Magisk-Modules-Repo/IPControl/blob/master/Changelog.md)
