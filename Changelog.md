@@ -1,5 +1,9 @@
 ## Changelog
 
+#### 2.0.1
+
+- Link to Changelog is working now and banner also has been stretched to fit
+
 #### 2.0.0
 
 "Advanced Charging Control (ACControl)" is renamed to "Input Power Control (IPControl)"
