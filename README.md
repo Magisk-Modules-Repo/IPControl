@@ -26,6 +26,25 @@ options.
 
 Having either of 3 or 4 would suffice, 3 is favored if both are detected.
 
+## Supported Devices
+
+- Asus Zenfone Max Pro M1
+- Google Pixel 3
+- LG Google Nexus 5
+- LeEco Le Max 2
+- OnePlus 3T
+- OnePlus 3
+- Samsung Galaxy S8
+- Xiaomi Mi A1
+- Xiaomi Mi Max 3
+- Xiaomi Pocophone F1
+- Xiaomi Redmi Note 3 Pro
+- Xiaomi Redmi Note 5
+- ZTE Axon 7
+
+If your device isn't listed above, don't worry! You should try IPControl and test
+it out yourself.
+
 ## Downloads
 
 Please obtain release zips [from GitHub releases](https://github.com/Magisk-Modules-Repo/IPControl/releases),
