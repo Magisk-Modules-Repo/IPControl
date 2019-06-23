@@ -62,7 +62,7 @@ If you aren't a power-user and don't wanna mess with understanding commandline
 (although it's explained well below), here is what minimal setup should be like,
 
     su                                 # Obtain root shell
-    ipc -u 70 60                       # Update thresholds, substitute 70 and 60
+    ipc -u 70 60                       # Update thresholds
     ipc -d launch                      # Launch the daemon
 
 ## Commandline
