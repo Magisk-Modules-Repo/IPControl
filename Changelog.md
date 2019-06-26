@@ -1,5 +1,10 @@
 ## Changelog
 
+#### 2.1.0
+
+- Supported Devices are listed in README as reported in IPControl Support group
+- README is slightly updated to fit in default Magisk Manager markdown window
+
 #### 2.0.2
 
 - Position of banner is moved from top to beneath "Input Power Control" heading
