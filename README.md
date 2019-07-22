@@ -34,6 +34,7 @@ Having either of 3 or 4 would suffice, 3 is favored if both are detected.
 - LeEco Le Max 2
 - OnePlus 3T
 - OnePlus 3
+- OnePlus 5T
 - OnePlus 7 Pro
 - Samsung Galaxy S8
 - Xiaomi Mi A1
