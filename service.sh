@@ -16,4 +16,27 @@
 # You should have received a copy of the GNU General Public License
 # along with IPControl.  If not, see <https://www.gnu.org/licenses/>.
 
-ipc -d launch
+MODDIR=${0%/*}
+
+IMGDIR=/sbin/.core/img
+UPDDIR=/data/adb/modules_update
+id=IPControl
+
+if [ -e ${UPDDIR}/${id}/ipc ]; then
+
+    ln -sf ${UPDDIR}/${id}/ipc /sbin/ipc
+    HOME=${UPDDIR}/${id}
+
+elif [ -e ${IMGDIR}/${id}/rclone-wrapper.sh ]; then
+
+    ln -sf ${IMGDIR}/${id}/ipc /sbin/ipc
+    HOME=${IMGDIR}/${id}
+
+else
+
+    ln -sf ${MODDIR}/ipc /sbin/ipc
+    HOME=${MODDIR}
+
+fi
+
+$HOME/ipc -d launch

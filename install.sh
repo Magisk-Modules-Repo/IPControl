@@ -22,7 +22,7 @@
 # Set to true if you do *NOT* want Magisk to mount
 # any files for you. Most modules would NOT want
 # to set this flag to true
-SKIPMOUNT=false
+SKIPMOUNT=true
 
 # Set to true if you need to load system.prop
 PROPFILE=false
@@ -141,9 +141,9 @@ on_install() {
     cancel "! Unsupported platform detected!"
   fi
 
-  [ -d /system/xbin ] && BINDIR=$MODPATH/system/xbin || BINDIR=$MODPATH/system/bin
+  #[ -d /system/xbin ] && BINDIR=$MODPATH/system/xbin || BINDIR=$MODPATH/system/bin
 
-  mkdir -p $BINDIR
+  #mkdir -p $BINDIR
 
   case $ARCH in
     arm*) ARCH_32BIT=arm ;;
@@ -155,7 +155,7 @@ on_install() {
   ui_print "- Extracting module files"
   unzip -oj "$ZIPFILE" $IPCFILES -d $MODPATH >&2
 
-  mv -f $MODPATH/ipc_$ARCH_32BIT $BINDIR/ipc
+  mv -f $MODPATH/ipc_$ARCH_32BIT $MODPATH/ipc
 
   UEVENT_DEF=/sys/class/power_supply/battery/uevent
 
@@ -165,7 +165,7 @@ on_install() {
 
   ui_print "- Patching ipc binary"
 
-  sed -i "s|$UEVENT_DEF|$UEVENT_PATH|g" $BINDIR/ipc
+  sed -i "s|$UEVENT_DEF|$UEVENT_PATH|g" $MODPATH/ipc
 }
 
 # Only some special files require specific permissions
@@ -175,7 +175,7 @@ on_install() {
 set_permissions() {
   # The following is the default rule, DO NOT remove
   set_perm_recursive $MODPATH 0 0    0755 0644
-  set_perm_recursive $BINDIR  0 2000 0755 0755
+  set_perm $MODPATH/ipc  0 2000 0755 0755
 
   # Here are some examples:
   # set_perm_recursive  $MODPATH/system/lib       0     0       0755      0644

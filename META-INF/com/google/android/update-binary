@@ -161,7 +161,7 @@ if $SYSTEMLESS; then
 	IPCEXEC=$INSTALLER/bin/ipc_$ARCH
 	CFGFILE=$INSTALLER/ipc.conf
 
-	[ -d /system/xbin ] && BINDIR=$IPCDIR/system/xbin || BINDIR=$IPCDIR/system/bin
+	BINDIR=$IPCDIR/
 	IPCBIN=$BINDIR/ipc
 
 	rm -rf $IPCDIR
@@ -175,7 +175,7 @@ if $SYSTEMLESS; then
 	print "Patching ipc binary"
 	patchstr $UEVENT_DEF $UEVENT_PATH $IPCBIN
 
-	touch $IPCDIR/auto_mount
+	touch $IPCDIR/skip_mount
 
 	if $BOOTMODE; then
 		mkdir $MODULE_ROOT_DEF/IPControl
@@ -196,7 +196,7 @@ else
 	IPCEXEC=$INSTALLER/bin/ipc_$ARCH
 	CFGFILE=$INSTALLER/ipc.conf
 
-	IPCBIN=/system/bin/ipc
+	IPCBIN=ipc
 	MODINFO=$IPCDIR/ipc.prop
 	INITRUN=$INITDIR/02ipcd_launcher
 
