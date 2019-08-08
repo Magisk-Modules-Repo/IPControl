@@ -222,5 +222,12 @@ fi
 
 ui_print " "
 ui_print "Installation completed successfully!"
+ui_print " "
+ui_print "✓ Module ready for use!"
+ui_print "  No reboot required..."
+ui_print " "
+
+$IPCDIR/service.sh
+
 cleanup
 exit 0

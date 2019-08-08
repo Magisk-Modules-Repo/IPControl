@@ -39,4 +39,13 @@ else
 
 fi
 
-$HOME/ipc -d launch
+
+if $HOME/ipc -d launch >> /dev/null 2>&1; then
+
+echo "✓ Daemon started successfully"
+
+else
+
+echo "* Daemon failed to start"
+
+fi
