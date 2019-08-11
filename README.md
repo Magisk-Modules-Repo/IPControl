@@ -32,14 +32,21 @@ Having either of 3 or 4 would suffice, 3 is favored if both are detected.
 - Google Pixel 3
 - LG Google Nexus 5
 - LeEco Le Max 2
+- Lenovo Zuk Z2 Plus
+- Motorola Moto X4
 - OnePlus 3T
 - OnePlus 3
+- OnePlus 6
 - OnePlus 7 Pro
+- Samsung Galaxy Note 3
 - Samsung Galaxy S8
 - Xiaomi Mi A1
+- Xiaomi Mi Max 2
 - Xiaomi Mi Max 3
 - Xiaomi Pocophone F1
+- Xiaomi Redmi K20 Pro
 - Xiaomi Redmi Note 3 Pro
+- Xiaomi Redmi Note 4
 - Xiaomi Redmi Note 5
 - ZTE Axon 7
 
