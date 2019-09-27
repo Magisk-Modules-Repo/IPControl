@@ -40,6 +40,7 @@ Having either of 3 or 4 would suffice, 3 is favored if both are detected.
 - OnePlus 6
 - OnePlus 7 Pro
 - Samsung Galaxy Note 3
+- Samsung Galaxy S6 Edge
 - Samsung Galaxy S8
 - Xiaomi Mi A1
 - Xiaomi Mi Max 2
@@ -49,6 +50,8 @@ Having either of 3 or 4 would suffice, 3 is favored if both are detected.
 - Xiaomi Redmi Note 3 Pro
 - Xiaomi Redmi Note 4
 - Xiaomi Redmi Note 5
+- Xiaomi Redmi Note 6 Pro
+- Xiaomi Redmi Note 7
 - ZTE Axon 7
 
 If your device isn't listed above, don't worry! You should try IPControl and test
