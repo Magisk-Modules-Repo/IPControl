@@ -1,5 +1,19 @@
 ## Changelog
 
+#### 3.0.0
+
+- Replace short commandline options with longer ones due to internal integrity
+- List of Supported Devices in README is updated as reported in Telegram group
+- Update documentations
+
+Guys,
+
+Please note that those who have wakelocks and other kernel-level disturbances, I
+have tried to debug those and I figured there is no universal solution to it due
+to lack of 'parallel' charging device (/sys/class/power_supply/parallel/ folder).
+
+Big thanks to XaNdR0 @ Telegram for their testing!
+
 #### 2.1.0
 
 - Supported Devices are listed in README as reported in IPControl Support group
