@@ -1,6 +1,6 @@
 id=IPControl
 name=Input Power Control
-version=3.0.0
-versionCode=34
+version=3.0.1
+versionCode=35
 author=Jaymin Suthar
 description=Completely native input power control tool written purely in C++ for performance and stability

@@ -1,5 +1,9 @@
 ## Changelog
 
+#### 3.0.1
+
+- libsocket library is rebuilt with Android NDK r20
+
 #### 3.0.0
 
 - Replace short commandline options with longer ones due to internal integrity
