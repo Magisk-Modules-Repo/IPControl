@@ -38,10 +38,12 @@ Having either of 3 or 4 would suffice, 3 is favored if both are detected.
 - OnePlus 3
 - OnePlus 5T
 - OnePlus 6
+- OnePlus 6T
 - OnePlus 7 Pro
 - Samsung Galaxy Note 3
 - Samsung Galaxy S6 Edge
 - Samsung Galaxy S8
+- Xiaomi Mi 9T Pro
 - Xiaomi Mi A1
 - Xiaomi Mi Max 2
 - Xiaomi Mi Max 3
