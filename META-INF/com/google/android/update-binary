@@ -98,8 +98,17 @@ is_mounted /data || mount /data || abort "Error occured while mounting /data"
 MAGISK_VER=$(getprop MAGISK_VER_CODE $DE_DATA/magisk/util_functions.sh)
 [ -n "$MAGISK_VER" ] && [ $MAGISK_VER -ge 18105 ] || SYSTEMLESS=false
 
-$SYSTEMLESS && RW=ro || RW=rw
-mount -o $RW /system || mount -o $RW,remount /system || abort "Error occured while mounting /system"
+ui_print "- Mounting /system(ro), /vendor(ro), /data, /cache"
+mount -o ro /system 2>/dev/null
+mount -o ro /vendor 2>/dev/null
+mount /data 2>/dev/null
+mount /cache 2>/dev/null
+
+if [ ! -f '/system/build.prop' ]; then
+  ui_print "! Failed: /system could not be mounted!"
+  exit 1
+fi
+
 if [ -f /system/init ]; then
 	mkdir /system_root
 	mount -o move /system /system_root
